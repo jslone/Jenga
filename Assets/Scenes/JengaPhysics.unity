@@ -482,25 +482,6 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 442424, guid: 8ca3f5d7be78d994ab471f3edc97bdf5, type: 2}
   m_PrefabInternal: {fileID: 1067227829}
---- !u!1 &1067227831 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 194166, guid: 8ca3f5d7be78d994ab471f3edc97bdf5, type: 2}
-  m_PrefabInternal: {fileID: 1067227829}
---- !u!54 &1067227832
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1067227831}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: .0500000007
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1001 &1411805663
 Prefab:
   m_ObjectHideFlags: 0
