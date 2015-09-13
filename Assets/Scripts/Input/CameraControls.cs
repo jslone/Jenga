@@ -10,6 +10,7 @@ public class CameraControls : Singleton<CameraControls>
 
     public float RotationalSensitivity = 1.0f;
     public float ZoomSensitivity = 1.0f;
+    public float ZoomNearClip = 0.1f;
 
     private Vector3 _positionCache;
     private Quaternion _rotationCache;
@@ -20,7 +21,7 @@ public class CameraControls : Singleton<CameraControls>
         if(Init(this))
         {
             this.Camera = GetComponent<Camera>();
-            this.transform.position = Distance * Vector3.one.normalized;
+            this.transform.position = Distance * Vector3.one.normalized + Focus;
             this.transform.LookAt(Focus);
         }
     }
@@ -36,8 +37,8 @@ public class CameraControls : Singleton<CameraControls>
         if(Input.GetAxis("Zoom") != 0)
         {
             Distance += ZoomSensitivity * Input.GetAxis("Zoom");
-            Distance = Mathf.Max(1.0f, Distance);
-            this.transform.position = this.transform.position.normalized * Distance;
+            Distance = Mathf.Max(ZoomNearClip, Distance);
+            this.transform.position = (this.transform.position - Focus).normalized * Distance + Focus;
         }
     }
 
