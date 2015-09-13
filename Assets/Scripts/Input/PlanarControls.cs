@@ -16,6 +16,7 @@ public class PlanarControls : MonoBehaviour
     Rigidbody heldPiece = null;
     Vector3 offset = Vector3.zero;
     float distance = 0.0f;
+    bool snap = true;
 
     Vector3 PiecePosition { get { return heldPiece.transform.position + offset; } }
 
@@ -56,17 +57,37 @@ public class PlanarControls : MonoBehaviour
             SetPieceHeld(false);
             heldPiece = null;
         }
+
+        // toggle snap
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            snap = !snap;
+        }
     }
 
     void FixedUpdate()
     {
         if(heldPiece != null)
         {
-            Ray mousePositionRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray mousePositionRay = CameraControls.Instance.Camera.ScreenPointToRay(Input.mousePosition);
             Vector3 newPosition = mousePositionRay.origin + distance * mousePositionRay.direction;
 
             Vector3 deltaPosition = newPosition - PiecePosition;
-            heldPiece.velocity = deltaPosition / Time.fixedDeltaTime;
+            Vector3 freeVariableFlag = Vector3.one;
+
+            // lock closest 
+            if (snap)
+            {
+                Vector3 snappedDirection = CameraControls.Instance.GetClosestDirection();
+                Vector3 snappedAbs = new Vector3(Mathf.Abs(snappedDirection.x), Mathf.Abs(snappedDirection.y), Mathf.Abs(snappedDirection.z));
+
+                freeVariableFlag -= snappedAbs;
+            }
+
+            // Zeros out directions which should be fixed
+            Vector3 fixedDeltaPosition = Vector3.Scale(deltaPosition, freeVariableFlag);
+
+            heldPiece.velocity = fixedDeltaPosition / Time.fixedDeltaTime;
         }
     }
 
