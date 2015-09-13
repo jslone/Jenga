@@ -11,12 +11,19 @@ public enum MouseButton : int
 
 public class PlanarControls : MonoBehaviour
 {
-    static LayerMask clickableLayer = LayerMask.GetMask("Blocks");
+    static LayerMask clickableLayer;
+
     Rigidbody heldPiece = null;
     Vector3 offset = Vector3.zero;
     float distance = 0.0f;
 
     Vector3 PiecePosition { get { return heldPiece.transform.position + offset; } }
+
+    // Called before start
+    void Awake()
+    {
+        clickableLayer = LayerMask.GetMask("Blocks");
+    }
 
     // Use this for initialization
     void Start()
@@ -68,5 +75,4 @@ public class PlanarControls : MonoBehaviour
         heldPiece.useGravity = !held;
         heldPiece.freezeRotation = held;
     }
-
 }
