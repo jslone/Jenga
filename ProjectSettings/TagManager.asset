@@ -14,9 +14,9 @@ TagManager:
   - 
   - 
   - Blocks
-  - 
-  - 
-  - 
+  - Axes_World
+  - Axes_Camera
+  - Axes_Local
   - 
   - 
   - 
