@@ -8,13 +8,19 @@ public enum MouseButton : int
     Middle = 2,
 }
 
-
-public class PlanarControls : MonoBehaviour
+public class PlanarControls : Singleton<PlanarControls>
 {
+    public enum Spaces : int
+    {
+        World,
+        Local,
+        Camera,
+    };
+
     static LayerMask clickableLayer;
-    LayerMask[] axesLayers;
-    int currentAxisIndex;
-    LayerMask CurrentAxis { get { return axesLayers[currentAxisIndex]; } }
+    LayerMask[] spaceMasks;
+    public Spaces CurrentSpace = Spaces.World;
+    LayerMask CurrentSpaceMask { get { return spaceMasks[(int)CurrentSpace]; } }
 
     Rigidbody heldPiece = null;
     Vector3 offset = Vector3.zero;
@@ -25,14 +31,14 @@ public class PlanarControls : MonoBehaviour
     // Called before start
     void Awake()
     {
+        Init(this);
         clickableLayer = LayerMask.GetMask("Blocks");
-        axesLayers = new LayerMask[]
+        spaceMasks = new LayerMask[]
         {
             LayerMask.GetMask("Axes_World"),
             LayerMask.GetMask("Axes_Local"),
             LayerMask.GetMask("Axes_Camera"),
         };
-        currentAxisIndex = 0;
     }
 
     // Use this for initialization
@@ -66,10 +72,11 @@ public class PlanarControls : MonoBehaviour
             heldPiece = null;
         }
 
-        // cycle axes
+        // cycle spaces
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            currentAxisIndex = (currentAxisIndex + 1) % axesLayers.Length;
+            // wrap around increment space
+            CurrentSpace = (Spaces)(((int)CurrentSpace + 1) % spaceMasks.Length);
         }
     }
 
@@ -84,25 +91,20 @@ public class PlanarControls : MonoBehaviour
             newPositionRay.origin = CameraPosition;
 
             RaycastHit oldInfo, newInfo;
-            if(!Physics.Raycast(oldPositionRay, out oldInfo, float.PositiveInfinity, CurrentAxis))
+            if(!Physics.Raycast(oldPositionRay, out oldInfo, float.PositiveInfinity, CurrentSpaceMask))
             {
                 Debug.DrawRay(oldPositionRay.origin, 10 * oldPositionRay.direction, Color.red, 10.0f);
-                Debug.LogWarning("Couldn't find " + LayerMask.LayerToName(CurrentAxis) + " for old position ray");
                 return;
             }
 
-            if(!Physics.Raycast(newPositionRay, out newInfo, float.PositiveInfinity, CurrentAxis))
+            if(!Physics.Raycast(newPositionRay, out newInfo, float.PositiveInfinity, CurrentSpaceMask))
             {
                 Debug.DrawRay(newPositionRay.origin, 10 * newPositionRay.direction, Color.green, 10.0f);
-                Debug.LogWarning("Couldn't find " + LayerMask.LayerToName(CurrentAxis) + " for old position ray");
                 return;
             }
 
             float scaleFactor = cameraToOldPosition.magnitude / oldInfo.distance;
             float realNewDistance = newInfo.distance * scaleFactor;
-
-            Debug.Log(oldInfo.distance);
-            Debug.Log(newInfo.distance);
 
             Vector3 newPosition = newPositionRay.origin + newPositionRay.direction * realNewDistance;
 
