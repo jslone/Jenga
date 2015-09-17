@@ -39,7 +39,7 @@ public class KeyboardControls : MonoBehaviour {
 
             if(enableQE) {
                 Vector3 rotate = new Vector3(0, rotation, 0);
-                currentBlock.transform.Rotate(rotate, 100 * Time.fixedDeltaTime);
+                currentBlock.transform.Rotate(rotate, 100 * Time.fixedDeltaTime, Space.World);
             }
 
             if(enableWASD) {

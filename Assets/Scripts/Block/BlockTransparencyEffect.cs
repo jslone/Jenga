@@ -33,6 +33,7 @@ public class BlockTransparencyEffect : MonoBehaviour {
         if (Input.GetMouseButtonUp((int)MouseButton.Left) && heldPiece != null)
         {
             heldPiece = null;
+            Clear();
         }
 
         if(heldPiece != null) {
@@ -62,7 +63,23 @@ public class BlockTransparencyEffect : MonoBehaviour {
                      curRenderer.materials[i].shader = Shader.Find("Standard");
                      curRenderer.materials[i].color = new Color(curColor.r, curColor.g, curColor.b, 1.0f);
                  }
-            }    
+           }    
+        }
+    }
+
+    // Reset piece shader
+    void Clear() {
+        GameObject[] tower = GameObject.FindGameObjectsWithTag("Block");
+        Renderer curRenderer;
+        Color curColor;
+
+        foreach (GameObject block in tower) {
+            curRenderer = block.GetComponentInChildren<Renderer>();
+            curColor = curRenderer.material.color;
+            for (int i = 0; i < curRenderer.materials.Length; i++) {
+                curRenderer.materials[i].shader = Shader.Find("Standard");
+                curRenderer.materials[i].color = new Color(curColor.r, curColor.g, curColor.b, 1.0f);
+            }
         }
     }
 
