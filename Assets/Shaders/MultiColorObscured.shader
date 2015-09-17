@@ -49,10 +49,6 @@
 		}
 		ENDCG
 
-		CGINCLUDE
-		#define _GLOSSYENV 1
-		ENDCG
-
 		ZTest Less
 		ZWrite On
 
