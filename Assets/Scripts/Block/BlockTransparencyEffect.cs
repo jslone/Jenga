@@ -42,13 +42,24 @@ public class BlockTransparencyEffect : MonoBehaviour {
     }
 
     void FadeClosest() {
-        GameObject[] tower = GameObject.FindGameObjectsWithTag("Block");
-        Vector3 pos = heldPiece.transform.position;
-        Rigidbody rb;
+        //GameObject[] tower = GameObject.FindGameObjectsWithTag("Block");
+        //Vector3 pos = heldPiece.transform.position;
+        //Rigidbody rb;
         Renderer curRenderer;
         Color curColor;
-        float curDistance = 0;
+        //float curDistance = 0;
 
+        curRenderer = heldPiece.GetComponentInChildren<Renderer>();
+        curColor = curRenderer.material.color;
+
+        for (int i = 0; i < curRenderer.materials.Length; i++)
+        {
+                curRenderer.materials[i].shader = Shader.Find("Custom/Standard");
+                curRenderer.materials[i].color = new Color(curColor.r, curColor.g, curColor.b, 1.0f);
+
+        }
+
+        /*
         foreach(GameObject block in tower) {
             rb = block.GetComponent<Rigidbody>();
 
@@ -65,6 +76,7 @@ public class BlockTransparencyEffect : MonoBehaviour {
                  }
            }    
         }
+        */
     }
 
     // Reset piece shader
