@@ -30,6 +30,8 @@ GameObject:
   - 81: {fileID: 8149844}
   - 114: {fileID: 11450082}
   - 114: {fileID: 11437632}
+  - 114: {fileID: 11415738}
+  - 114: {fileID: 11444842}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -122,6 +124,19 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 197768}
   m_Enabled: 1
+--- !u!114 &11415738
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 197768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c847bbd7cb831a48b258bd5f01f8a6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enableWASD: 0
+  enableQE: 1
 --- !u!114 &11437632
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -139,6 +154,18 @@ MonoBehaviour:
   RotationalSensitivity: 1
   ZoomSensitivity: 5
   ZoomNearClip: .100000001
+--- !u!114 &11444842
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 197768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58f986e87b2e3ef438bd60ab363818a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distance: .600000024
 --- !u!114 &11450082
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -150,6 +177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c494a975c76a53c41aa30b8179c8aa08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CurrentSpace: 0
 --- !u!124 &12418546
 Behaviour:
   m_ObjectHideFlags: 1
