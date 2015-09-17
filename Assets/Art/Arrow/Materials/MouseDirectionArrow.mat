@@ -10,7 +10,7 @@ Material:
   m_Shader: {fileID: 4800000, guid: 585e2cdf61ffbe14bb4d1bd205067d93, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
-  m_CustomRenderQueue: 3000
+  m_CustomRenderQueue: 2000
   stringTagMap: {}
   m_SavedProperties:
     serializedVersion: 2
@@ -78,6 +78,27 @@ Material:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Metallic
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Albedo
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Normal
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
     m_Floats:
       data:
         first:
@@ -93,6 +114,10 @@ Material:
         second: .5
       data:
         first:
+          name: _Smoothness
+        second: 0
+      data:
+        first:
           name: _Parallax
         second: .0199999996
       data:
@@ -102,7 +127,7 @@ Material:
       data:
         first:
           name: _Glossiness
-        second: .5
+        second: 0
       data:
         first:
           name: _BumpScale
@@ -155,6 +180,14 @@ Material:
         first:
           name: _Outline
         second: .00499999989
+      data:
+        first:
+          name: _Alpha
+        second: .200000003
+      data:
+        first:
+          name: _Metalic
+        second: 0
     m_Colors:
       data:
         first:
@@ -176,3 +209,15 @@ Material:
         first:
           name: _Color2
         second: {r: .196078435, g: .890196085, b: .196078435, a: .272000015}
+      data:
+        first:
+          name: _Albedo
+        second: {r: .33912909, g: .865999997, b: .192251995, a: 1}
+      data:
+        first:
+          name: _ObscureAlbedo
+        second: {r: 1, g: 1, b: 1, a: .5}
+      data:
+        first:
+          name: _ObscuredAlbedo
+        second: {r: .337254912, g: .862745106, b: .192156866, a: .501960814}
