@@ -33,7 +33,7 @@ public class ImpactSound : MonoBehaviour
 
         impactSound.Play();
 
-        sustainedContactSound.time = Random.Range(0, sustainedContactSound.clip.length);
+        sustainedContactSound.time = Random.Range(0, sustainedContactSound.clip.length * 0.999f);
         sustainedContactSound.Play();
     }
 
