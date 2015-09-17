@@ -234,7 +234,7 @@ GameObject:
   - 114: {fileID: 11469942}
   m_Layer: 8
   m_Name: Block
-  m_TagString: Untagged
+  m_TagString: Block
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -997,6 +997,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   impactSound: {fileID: 8223256}
   sustainedContactSound: {fileID: 8288070}
+  scaleVolume: .100000001
 --- !u!114 &11471550
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1112,6 +1113,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Volume
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_TagString
+      value: Block
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
