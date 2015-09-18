@@ -118,6 +118,10 @@ Material:
         second: 0
       data:
         first:
+          name: _Metallic
+        second: 0
+      data:
+        first:
           name: _Parallax
         second: .0199999996
       data:
@@ -147,10 +151,6 @@ Material:
       data:
         first:
           name: _Mode
-        second: 0
-      data:
-        first:
-          name: _Metallic
         second: 0
       data:
         first:
@@ -199,6 +199,10 @@ Material:
         second: {r: .33088237, g: 1, b: .418559939, a: 1}
       data:
         first:
+          name: _Albedo
+        second: {r: .446312696, g: .933823526, b: .873304963, a: 1}
+      data:
+        first:
           name: _OutlineColor
         second: {r: 0, g: 1, b: .296551704, a: 1}
       data:
@@ -209,10 +213,6 @@ Material:
         first:
           name: _Color2
         second: {r: .196078435, g: .890196085, b: .196078435, a: .272000015}
-      data:
-        first:
-          name: _Albedo
-        second: {r: .33912909, g: .865999997, b: .192251995, a: 1}
       data:
         first:
           name: _ObscureAlbedo
