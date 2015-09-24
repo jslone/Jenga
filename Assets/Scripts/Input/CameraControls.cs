@@ -4,7 +4,8 @@ using System.Collections;
 [RequireComponent(typeof(Camera))]
 public class CameraControls : Singleton<CameraControls>
 {
-    public Vector3 Focus;
+    public FollowBlocks followControls;
+    public Vector3 Focus { get { return transform.parent.position; } }
     public float Distance;
     public Camera Camera;
 
@@ -18,6 +19,7 @@ public class CameraControls : Singleton<CameraControls>
     // Use this for initialization
     void Start()
     {
+        
         if(Init(this))
         {
             this.Camera = GetComponent<Camera>();
@@ -31,6 +33,7 @@ public class CameraControls : Singleton<CameraControls>
     {
         if(Input.GetMouseButton((int)MouseButton.Right))
         {
+            followControls.CurrentHeldBias = 1.0f;
             this.transform.RotateAround(Focus, Vector3.up, Input.GetAxis("Horizontal"));
             this.transform.RotateAround(Focus, transform.right, -Input.GetAxis("Vertical"));
         }
