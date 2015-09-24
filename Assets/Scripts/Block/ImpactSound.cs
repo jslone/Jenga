@@ -14,7 +14,7 @@ public class ImpactSound : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        sustainedContactSound.pitch = Random.RandomRange(1 - pitchVariance, 1 + pitchVariance);
+        sustainedContactSound.pitch = Random.Range(1 - pitchVariance, 1 + pitchVariance);
     }
 
     // Update is called once per frame
