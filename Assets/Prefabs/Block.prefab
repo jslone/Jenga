@@ -1026,6 +1026,7 @@ MonoBehaviour:
   impactSound: {fileID: 8223256}
   sustainedContactSound: {fileID: 8288070}
   scaleVolume: .100000001
+  pitchVariance: .100000001
 --- !u!114 &11471550
 MonoBehaviour:
   m_ObjectHideFlags: 1

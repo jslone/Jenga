@@ -20,6 +20,8 @@ public class PlanarControls : Singleton<PlanarControls>
     static LayerMask clickableLayer;
     LayerMask[] spaceMasks;
     public Spaces CurrentSpace = Spaces.World;
+    public PhysicMaterial unheldBlockMaterial;
+    public PhysicMaterial heldBlockMaterial;
     LayerMask CurrentSpaceMask { get { return spaceMasks[(int)CurrentSpace]; } }
 
     Rigidbody heldPiece = null;
@@ -116,6 +118,7 @@ public class PlanarControls : Singleton<PlanarControls>
     {
         heldPiece.useGravity = !held;
         heldPiece.freezeRotation = held;
+        heldPiece.GetComponent<Collider>().material = held ? heldBlockMaterial : unheldBlockMaterial;
         heldPiece.transform.FindChild("whenHeld").gameObject.SetActive(held);
     }
 }

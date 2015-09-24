@@ -179,6 +179,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentSpace: 0
+  unheldBlockMaterial: {fileID: 13400000, guid: b3249ca163c7e6f45acdd9fdcd9f44da,
+    type: 2}
+  heldBlockMaterial: {fileID: 13400000, guid: d59027a561a34b0438e432030c528211, type: 2}
 --- !u!114 &11486054
 MonoBehaviour:
   m_ObjectHideFlags: 1
