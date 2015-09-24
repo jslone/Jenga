@@ -314,22 +314,6 @@ Prefab:
       propertyPath: m_Name
       value: ProtoBlock (0)
       objectReference: {fileID: 0}
-    - target: {fileID: 2322728, guid: 8ca3f5d7be78d994ab471f3edc97bdf5, type: 2}
-      propertyPath: m_CastShadows
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2371978, guid: 8ca3f5d7be78d994ab471f3edc97bdf5, type: 2}
-      propertyPath: m_CastShadows
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2318300, guid: 8ca3f5d7be78d994ab471f3edc97bdf5, type: 2}
-      propertyPath: m_CastShadows
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2309212, guid: 8ca3f5d7be78d994ab471f3edc97bdf5, type: 2}
-      propertyPath: m_CastShadows
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8ca3f5d7be78d994ab471f3edc97bdf5, type: 2}
   m_IsPrefabParent: 0
@@ -1030,7 +1014,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 494326, guid: 7107fba0d36e7394cad98703745fe057, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 184994, guid: 7107fba0d36e7394cad98703745fe057, type: 2}
       propertyPath: m_Name

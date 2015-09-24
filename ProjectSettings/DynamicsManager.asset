@@ -10,6 +10,6 @@ PhysicsManager:
   m_SleepThreshold: .00499999989
   m_DefaultContactOffset: .00999999978
   m_SolverIterationCount: 12
-  m_QueriesHitTriggers: 1
+  m_QueriesHitTriggers: 0
   m_EnableAdaptiveForce: 1
   m_LayerCollisionMatrix: fff1fffffff1fffffffffffffffffffffff1fffffff1fffffffffffffffffffffff1ffffccf0ffffccf0ffffccf0ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff

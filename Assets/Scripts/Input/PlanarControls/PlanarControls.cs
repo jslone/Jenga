@@ -23,9 +23,8 @@ public class PlanarControls : Singleton<PlanarControls>
     LayerMask CurrentSpaceMask { get { return spaceMasks[(int)CurrentSpace]; } }
 
     Rigidbody heldPiece = null;
-    Vector3 offset = Vector3.zero;
 
-    Vector3 PiecePosition { get { return heldPiece.transform.position + offset; } }
+    Vector3 PiecePosition { get { return heldPiece.transform.FindChild("holdAnchor").transform.position; } }
     Vector3 CameraPosition { get { return CameraControls.Instance.transform.position; } }
 
     // Called before start
@@ -60,8 +59,7 @@ public class PlanarControls : Singleton<PlanarControls>
             {
                 heldPiece = hitInfo.collider.GetComponent<Rigidbody>();
                 SetPieceHeld(true);
-
-                offset = hitInfo.point - heldPiece.transform.position;
+                heldPiece.transform.FindChild("holdAnchor").transform.position = hitInfo.point;
             }
         }
 
@@ -91,13 +89,13 @@ public class PlanarControls : Singleton<PlanarControls>
             newPositionRay.origin = CameraPosition;
 
             RaycastHit oldInfo, newInfo;
-            if(!Physics.Raycast(oldPositionRay, out oldInfo, float.PositiveInfinity, CurrentSpaceMask))
+            if(!Physics.Raycast(oldPositionRay, out oldInfo, float.PositiveInfinity, CurrentSpaceMask, QueryTriggerInteraction.Collide))
             {
                 Debug.DrawRay(oldPositionRay.origin, 10 * oldPositionRay.direction, Color.red, 10.0f);
                 return;
             }
 
-            if(!Physics.Raycast(newPositionRay, out newInfo, float.PositiveInfinity, CurrentSpaceMask))
+            if(!Physics.Raycast(newPositionRay, out newInfo, float.PositiveInfinity, CurrentSpaceMask, QueryTriggerInteraction.Collide))
             {
                 Debug.DrawRay(newPositionRay.origin, 10 * newPositionRay.direction, Color.green, 10.0f);
                 return;
