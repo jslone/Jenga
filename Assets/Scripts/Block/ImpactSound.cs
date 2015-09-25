@@ -8,13 +8,36 @@ public class ImpactSound : MonoBehaviour
     public AudioSource impactSound;
     public AudioSource sustainedContactSound;
     public float scaleVolume = 0.1f;
-    public float pitchVariance = 0.05f;
-    private Dictionary<Collider, float> colliderVolumeContribution = new Dictionary<Collider, float>();
+    public float scalePitch = 0.1f;
+    public float minPitch = 0.5f;
+    public float maxPitch = 2.0f;
+
+    private float _pitch;
+    private float sustainedContactPitch
+    {
+        get
+        {
+            return _pitch;
+        }
+        set
+        {
+            _pitch = value;
+            sustainedContactSound.pitch = Mathf.Clamp(_pitch, minPitch, maxPitch);
+        }
+    }
+
+    struct SoundSettings
+    {
+        public float volume;
+        public float pitch;
+    }
+
+    private Dictionary<Collider, SoundSettings> colliderVolumeContribution = new Dictionary<Collider, SoundSettings>();
 
     // Use this for initialization
     void Start()
     {
-        sustainedContactSound.pitch = Random.Range(1 - pitchVariance, 1 + pitchVariance);
+        _pitch = sustainedContactSound.pitch;
     }
 
     // Update is called once per frame
@@ -23,13 +46,25 @@ public class ImpactSound : MonoBehaviour
 
     }
 
+    SoundSettings createSettings(float magnitude)
+    {
+        SoundSettings settings;
+        settings.volume = scaleVolume * magnitude;
+        settings.pitch = scalePitch * magnitude;
+
+        return settings;
+    }
+
     void OnCollisionEnter(Collision col)
     {
-        float volume = scaleVolume * col.relativeVelocity.magnitude;
-        impactSound.volume = volume;
-        sustainedContactSound.volume += volume;
+        SoundSettings settings = createSettings(col.relativeVelocity.magnitude);
+        
+        impactSound.volume = settings.volume;
+        
+        sustainedContactSound.volume += settings.volume;
+        sustainedContactPitch += settings.pitch;
 
-        colliderVolumeContribution[col.collider] = volume;
+        colliderVolumeContribution[col.collider] = settings;
 
         impactSound.Play();
 
@@ -45,23 +80,26 @@ public class ImpactSound : MonoBehaviour
             sustainedContactSound.time = Random.Range(0.0f, sustainedContactSound.clip.length * 0.999f);
         }
 
-        float newVolume = scaleVolume * col.relativeVelocity.magnitude;
-        float oldVolume;
+        SoundSettings newSettings = createSettings(col.relativeVelocity.magnitude);
+        SoundSettings oldSettings;
 
-        colliderVolumeContribution.TryGetValue(col.collider, out oldVolume);
+        colliderVolumeContribution.TryGetValue(col.collider, out oldSettings);
 
-        sustainedContactSound.volume += newVolume - oldVolume;
+        sustainedContactSound.volume += newSettings.volume - oldSettings.volume;
+        sustainedContactPitch += newSettings.pitch - oldSettings.pitch;
 
-        colliderVolumeContribution[col.collider] = newVolume;
+        colliderVolumeContribution[col.collider] = newSettings;
     }
 
     void OnCollisionExit(Collision col)
     {
         sustainedContactSound.Stop();
 
-        sustainedContactSound.volume -= colliderVolumeContribution[col.collider];
+        SoundSettings oldSettings = colliderVolumeContribution[col.collider];
+        sustainedContactSound.volume -= oldSettings.volume;
+        sustainedContactPitch -= oldSettings.pitch;
 
-        colliderVolumeContribution[col.collider] = 0;
+        colliderVolumeContribution.Remove(col.collider);
     }
 
 }
