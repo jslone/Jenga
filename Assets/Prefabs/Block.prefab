@@ -811,7 +811,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 8710ea16aa6c8924390241c5fea94317, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0
-  m_Pitch: 1
+  m_Pitch: .5
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -1039,7 +1039,7 @@ MonoBehaviour:
   impactSound: {fileID: 8223256}
   sustainedContactSound: {fileID: 8288070}
   scaleVolume: .100000001
-  scalePitch: .00100000005
+  scalePitch: .100000001
   minPitch: .5
   maxPitch: 2
 --- !u!114 &11471550
