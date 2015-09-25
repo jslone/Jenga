@@ -249,7 +249,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   followControls: {fileID: 11417070}
-  Distance: 3
   Camera: {fileID: 0}
   RotationalSensitivity: 1
   ZoomSensitivity: 5
