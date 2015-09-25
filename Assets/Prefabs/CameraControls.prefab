@@ -237,6 +237,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58f986e87b2e3ef438bd60ab363818a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grabber: {fileID: 11433718}
+  grabbedShader: {fileID: 4800000, guid: 4424882428cfad94d945dd58599ce259, type: 3}
 --- !u!114 &11455380
 MonoBehaviour:
   m_ObjectHideFlags: 1
