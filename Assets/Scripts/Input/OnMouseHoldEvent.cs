@@ -6,7 +6,10 @@ public class OnMouseHoldEvent : MonoBehaviour {
     public bool isReset;
     public bool isExit;
 
-    float delay = 1.5f;
+    public float delay = 1.5f;
+    
+    public Color hoverColor;
+    
     float clickTime = 0.0f;
 
     private bool isClicked;
@@ -26,7 +29,10 @@ public class OnMouseHoldEvent : MonoBehaviour {
 	void Update () {
         if (isHover && isClicked) {
             float timestamp = Time.time;
-            if (timestamp - clickTime > delay) {
+            float heldDuration = timestamp - clickTime;
+            rend.material.SetColor("_EmissionColor", Color.Lerp(Color.black, Color.white, heldDuration / delay));
+            DynamicGI.UpdateMaterials(rend);
+            if (heldDuration > delay) {
                 if (isReset) {
                     Application.LoadLevel(0);
                 }
@@ -44,7 +50,7 @@ public class OnMouseHoldEvent : MonoBehaviour {
     }
     
     void OnMouseOver() {
-        rend.material.color = Color.yellow;
+        rend.material.color = hoverColor;
         isHover = true;
     }
 
@@ -56,5 +62,7 @@ public class OnMouseHoldEvent : MonoBehaviour {
     void OnMouseUp() {
         isClicked = false;
         clickTime = 0.0f;
+        rend.material.SetColor("_EmissionColor", Color.black);
+        DynamicGI.UpdateMaterials(rend);
     }
 }

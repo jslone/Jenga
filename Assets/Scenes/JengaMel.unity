@@ -1305,6 +1305,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isReset: 0
   isExit: 1
+  delay: 1.5
+  hoverColor: {r: 1, g: 1, b: 0, a: 1}
   rend: {fileID: 541504505}
 --- !u!23 &541504505
 MeshRenderer:
@@ -4314,6 +4316,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isReset: 1
   isExit: 0
+  delay: 1.5
+  hoverColor: {r: 1, g: 1, b: 0, a: 1}
   rend: {fileID: 1484388785}
 --- !u!23 &1484388785
 MeshRenderer:
