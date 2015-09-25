@@ -6,7 +6,7 @@ public class CameraControls : Singleton<CameraControls>
 {
     public FollowBlocks followControls;
     public Vector3 Focus { get { return transform.parent.position; } }
-    public float Distance;
+    float Distance;
     public Camera Camera;
 
     public float RotationalSensitivity = 1.0f;
@@ -23,7 +23,7 @@ public class CameraControls : Singleton<CameraControls>
         if(Init(this))
         {
             this.Camera = GetComponent<Camera>();
-            this.transform.position = Distance * Vector3.one.normalized + Focus;
+            Distance = this.transform.localPosition.magnitude;
             this.transform.LookAt(Focus);
         }
     }

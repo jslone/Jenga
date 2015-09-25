@@ -115,8 +115,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 118376}
-  m_LocalRotation: {x: -.160430074, y: .37686944, z: -.0664522797, w: -.909843802}
-  m_LocalPosition: {x: 1.5, y: 1, z: -1.5}
+  m_LocalRotation: {x: -.0206893291, y: .924157858, z: -.0505714156, w: -.378082991}
+  m_LocalPosition: {x: 3.13525796, y: .491024375, z: 3.19046259}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 436304}
@@ -208,7 +208,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grabber: {fileID: 11433718}
   CurrentHeldBias: 1
-  MaxHeldBias: 5
+  MaxHeldBias: 10
 --- !u!114 &11433718
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -225,19 +225,18 @@ MonoBehaviour:
     type: 2}
   heldBlockMaterial: {fileID: 13400000, guid: d59027a561a34b0438e432030c528211, type: 2}
   followControls: {fileID: 11417070}
-  followAcceleration: 1
+  followAcceleration: 2
 --- !u!114 &11436466
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 118376}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 58f986e87b2e3ef438bd60ab363818a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distance: .600000024
 --- !u!114 &11455380
 MonoBehaviour:
   m_ObjectHideFlags: 1
