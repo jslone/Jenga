@@ -8,13 +8,13 @@ public class ImpactSound : MonoBehaviour
     public AudioSource impactSound;
     public AudioSource sustainedContactSound;
     public float scaleVolume = 0.1f;
-
+    public float pitchVariance = 0.05f;
     private Dictionary<Collider, float> colliderVolumeContribution = new Dictionary<Collider, float>();
 
     // Use this for initialization
     void Start()
     {
-
+        sustainedContactSound.pitch = Random.Range(1 - pitchVariance, 1 + pitchVariance);
     }
 
     // Update is called once per frame

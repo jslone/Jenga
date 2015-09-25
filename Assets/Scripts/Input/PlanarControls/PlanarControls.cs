@@ -20,13 +20,19 @@ public class PlanarControls : Singleton<PlanarControls>
     static LayerMask clickableLayer;
     LayerMask[] spaceMasks;
     public Spaces CurrentSpace = Spaces.World;
+    public PhysicMaterial unheldBlockMaterial;
+    public PhysicMaterial heldBlockMaterial;
+    public FollowBlocks followControls;
+    public float followAcceleration;
     LayerMask CurrentSpaceMask { get { return spaceMasks[(int)CurrentSpace]; } }
 
-    Rigidbody heldPiece = null;
-    Vector3 offset = Vector3.zero;
+    public Rigidbody heldPiece { get; private set; }
 
-    Vector3 PiecePosition { get { return heldPiece.transform.position + offset; } }
+    Vector3 PiecePosition { get { return heldPiece.transform.FindChild("holdAnchor").transform.position; } }
     Vector3 CameraPosition { get { return CameraControls.Instance.transform.position; } }
+
+
+    private Vector3 newPosition = Vector3.zero;
 
     // Called before start
     void Awake()
@@ -60,8 +66,8 @@ public class PlanarControls : Singleton<PlanarControls>
             {
                 heldPiece = hitInfo.collider.GetComponent<Rigidbody>();
                 SetPieceHeld(true);
-
-                offset = hitInfo.point - heldPiece.transform.position;
+                newPosition = hitInfo.point;
+                heldPiece.transform.FindChild("holdAnchor").transform.position = hitInfo.point;
             }
         }
 
@@ -78,11 +84,9 @@ public class PlanarControls : Singleton<PlanarControls>
             // wrap around increment space
             CurrentSpace = (Spaces)(((int)CurrentSpace + 1) % spaceMasks.Length);
         }
-    }
 
-    void FixedUpdate()
-    {
-        if(heldPiece != null)
+        // handle mouse movement
+        if (heldPiece != null && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0))
         {
             Vector3 cameraToOldPosition = PiecePosition - CameraPosition;
 
@@ -91,13 +95,13 @@ public class PlanarControls : Singleton<PlanarControls>
             newPositionRay.origin = CameraPosition;
 
             RaycastHit oldInfo, newInfo;
-            if(!Physics.Raycast(oldPositionRay, out oldInfo, float.PositiveInfinity, CurrentSpaceMask))
+            if (!Physics.Raycast(oldPositionRay, out oldInfo, float.PositiveInfinity, CurrentSpaceMask, QueryTriggerInteraction.Collide))
             {
                 Debug.DrawRay(oldPositionRay.origin, 10 * oldPositionRay.direction, Color.red, 10.0f);
                 return;
             }
 
-            if(!Physics.Raycast(newPositionRay, out newInfo, float.PositiveInfinity, CurrentSpaceMask))
+            if (!Physics.Raycast(newPositionRay, out newInfo, float.PositiveInfinity, CurrentSpaceMask, QueryTriggerInteraction.Collide))
             {
                 Debug.DrawRay(newPositionRay.origin, 10 * newPositionRay.direction, Color.green, 10.0f);
                 return;
@@ -106,10 +110,16 @@ public class PlanarControls : Singleton<PlanarControls>
             float scaleFactor = cameraToOldPosition.magnitude / oldInfo.distance;
             float realNewDistance = newInfo.distance * scaleFactor;
 
-            Vector3 newPosition = newPositionRay.origin + newPositionRay.direction * realNewDistance;
+            newPosition = newPositionRay.origin + newPositionRay.direction * realNewDistance;
+        }
+    }
 
+    void FixedUpdate()
+    {
+        if (heldPiece != null)
+        {
             Vector3 deltaPosition = newPosition - PiecePosition;
-            
+            followControls.CurrentHeldBias += followAcceleration * deltaPosition.magnitude;
             heldPiece.velocity = deltaPosition / Time.fixedDeltaTime;
         }
     }
@@ -118,6 +128,8 @@ public class PlanarControls : Singleton<PlanarControls>
     {
         heldPiece.useGravity = !held;
         heldPiece.freezeRotation = held;
+        heldPiece.GetComponent<Collider>().material = held ? heldBlockMaterial : unheldBlockMaterial;
         heldPiece.transform.FindChild("whenHeld").gameObject.SetActive(held);
+        followControls.CurrentHeldBias = 1.0f;
     }
 }
