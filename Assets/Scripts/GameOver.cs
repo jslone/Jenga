@@ -22,7 +22,7 @@ public class GameOver : MonoBehaviour
             GameObject[] blocks = GameObject.FindGameObjectsWithTag("Block");
             foreach (GameObject block in blocks)
             {
-                float force = Application.isEditor ? 100.0f : 25.0f;
+                float force = 100.0f;
                 block.GetComponent<Rigidbody>().AddExplosionForce(force, CameraControls.Instance.Focus, force);
                 block.GetComponent<Rigidbody>().AddExplosionForce(2 * force, Vector3.zero, force);
                 this.enabled = false;
