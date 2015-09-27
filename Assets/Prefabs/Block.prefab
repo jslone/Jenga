@@ -30,7 +30,7 @@ GameObject:
   - 64: {fileID: 6406006}
   m_Layer: 11
   m_Name: PlaneZ
-  m_TagString: Untagged
+  m_TagString: Plane
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -111,7 +111,7 @@ GameObject:
   - 64: {fileID: 6429782}
   m_Layer: 11
   m_Name: PlaneX
-  m_TagString: Untagged
+  m_TagString: Plane
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -266,7 +266,7 @@ GameObject:
   - 64: {fileID: 6463118}
   m_Layer: 11
   m_Name: PlaneY
-  m_TagString: Untagged
+  m_TagString: Plane
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -33,6 +33,7 @@ GameObject:
   - 114: {fileID: 11474116}
   - 114: {fileID: 11436466}
   - 114: {fileID: 11415302}
+  - 114: {fileID: 11443532}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -226,6 +227,7 @@ MonoBehaviour:
   heldBlockMaterial: {fileID: 13400000, guid: d59027a561a34b0438e432030c528211, type: 2}
   followControls: {fileID: 11417070}
   followAcceleration: 2
+  distanceSpeed: .100000001
 --- !u!114 &11436466
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -239,6 +241,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grabber: {fileID: 11433718}
   grabbedShader: {fileID: 4800000, guid: 4424882428cfad94d945dd58599ce259, type: 3}
+--- !u!114 &11443532
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 118376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11455380
 MonoBehaviour:
   m_ObjectHideFlags: 1

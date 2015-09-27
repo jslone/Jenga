@@ -20,7 +20,7 @@ public class MaximalAngleToggle : MonoBehaviour
         float maximalCos0 = Mathf.Abs(Vector3.Dot(CurrentAxis.transform.forward, CameraControls.Instance.transform.forward));
         for(int i = 0; i < SnapAxes.Length; i++)
         {
-            SnapAxes[i].enabled = false;
+            SnapAxes[i].gameObject.SetActive(false);
 
             float cos0 = Vector3.Dot(SnapAxes[i].transform.forward, CameraControls.Instance.transform.forward);
             float absCos0 = Mathf.Abs(cos0);
@@ -31,7 +31,7 @@ public class MaximalAngleToggle : MonoBehaviour
             }
         }
 
-        SnapAxes[currentAxisIndex].enabled = true;
+        SnapAxes[currentAxisIndex].gameObject.SetActive(true);
     }
 
 }

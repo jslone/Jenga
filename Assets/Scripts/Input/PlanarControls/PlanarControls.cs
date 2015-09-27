@@ -24,6 +24,7 @@ public class PlanarControls : Singleton<PlanarControls>
     public PhysicMaterial heldBlockMaterial;
     public FollowBlocks followControls;
     public float followAcceleration;
+    public float distanceSpeed;
     LayerMask CurrentSpaceMask { get { return spaceMasks[(int)CurrentSpace]; } }
 
     public Rigidbody heldPiece { get; private set; }
@@ -111,6 +112,31 @@ public class PlanarControls : Singleton<PlanarControls>
             float realNewDistance = newInfo.distance * scaleFactor;
 
             newPosition = newPositionRay.origin + newPositionRay.direction * realNewDistance;
+        }
+
+        if (Input.GetAxis("Distance") != 0)
+        {
+            float deltaScalar = distanceSpeed * Input.GetAxis("Distance");
+
+            // only one plane should be active at a time
+            //GameObject currentPlane = GameObject.FindGameObjectWithTag("Plane");
+
+            Ray r = CameraControls.Instance.Camera.ScreenPointToRay(Input.mousePosition);
+            Vector3 direction = r.direction;
+            /*if (CurrentSpace == Spaces.Camera)
+            {
+                direction = CameraControls.Instance.transform.forward;
+            }
+            else
+            {
+                direction = Mathf.Sign(Vector3.Dot(currentPlane.transform.forward, CameraControls.Instance.transform.forward)) * currentPlane.transform.forward;
+            }*/
+
+
+            Vector3 delta = deltaScalar * direction;
+
+            newPosition += delta;
+            
         }
     }
 
