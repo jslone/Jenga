@@ -17,6 +17,7 @@ public class FollowBlocks : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         Vector3 com = Vector3.zero;
         foreach (GameObject block in blocks)
         {
@@ -29,6 +30,18 @@ public class FollowBlocks : MonoBehaviour
         }
 
         com /= blocks.Length;
-        transform.position = Vector3.Lerp(transform.position, com, Time.deltaTime);
+
+        if(grabber.heldPiece != null)
+        {
+            Vector3 oldAnchorScreen = CameraControls.Instance.Camera.WorldToScreenPoint(grabber.heldPiece.position);
+            transform.position = Vector3.Lerp(transform.position, com, Time.deltaTime);
+            Vector3 newAnchorScreen = CameraControls.Instance.Camera.WorldToScreenPoint(grabber.heldPiece.position);
+            Mouse.Instance.Position += (Vector2)(newAnchorScreen - oldAnchorScreen);
+        }
+        else
+        {
+            transform.position = Vector3.Lerp(transform.position, com, Time.deltaTime);
+        }
+        
     }
 }

@@ -60,7 +60,7 @@ public class PlanarControls : Singleton<PlanarControls>
         // check for selecting a piece
         if(Input.GetMouseButtonDown((int)MouseButton.Left))
         {
-            Ray mouseClickRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray mouseClickRay = Mouse.Instance.Ray;
             RaycastHit hitInfo;
 
             if(Physics.Raycast(mouseClickRay, out hitInfo, float.PositiveInfinity, clickableLayer))
@@ -92,7 +92,7 @@ public class PlanarControls : Singleton<PlanarControls>
             Vector3 cameraToOldPosition = PiecePosition - CameraPosition;
 
             Ray oldPositionRay = new Ray(CameraPosition, cameraToOldPosition.normalized);
-            Ray newPositionRay = CameraControls.Instance.Camera.ScreenPointToRay(Input.mousePosition);
+            Ray newPositionRay = Mouse.Instance.Ray;
             newPositionRay.origin = CameraPosition;
 
             RaycastHit oldInfo, newInfo;
@@ -116,27 +116,32 @@ public class PlanarControls : Singleton<PlanarControls>
 
         if (Input.GetAxis("Distance") != 0)
         {
-            float deltaScalar = distanceSpeed * Input.GetAxis("Distance");
+            float deltaScalar = distanceSpeed * Input.GetAxis("Distance") * Time.deltaTime;
 
             // only one plane should be active at a time
-            //GameObject currentPlane = GameObject.FindGameObjectWithTag("Plane");
+            GameObject currentPlane = GameObject.FindGameObjectWithTag("Plane");
 
-            Ray r = CameraControls.Instance.Camera.ScreenPointToRay(Input.mousePosition);
-            Vector3 direction = r.direction;
-            /*if (CurrentSpace == Spaces.Camera)
+            Ray r = Mouse.Instance.Ray;
+            Vector3 direction;
+            if (CurrentSpace == Spaces.Camera)
             {
                 direction = CameraControls.Instance.transform.forward;
             }
             else
             {
                 direction = Mathf.Sign(Vector3.Dot(currentPlane.transform.forward, CameraControls.Instance.transform.forward)) * currentPlane.transform.forward;
-            }*/
+            }
 
 
             Vector3 delta = deltaScalar * direction;
 
+            Vector3 oldMousePos = CameraControls.Instance.Camera.WorldToScreenPoint(newPosition);
+
             newPosition += delta;
-            
+
+            Vector3 newMousePos = CameraControls.Instance.Camera.WorldToScreenPoint(newPosition);
+
+            Mouse.Instance.Position += (Vector2)(newMousePos - oldMousePos);
         }
     }
 
