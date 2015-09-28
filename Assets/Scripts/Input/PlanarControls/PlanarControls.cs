@@ -135,13 +135,11 @@ public class PlanarControls : Singleton<PlanarControls>
 
             Vector3 delta = deltaScalar * direction;
 
-            Vector3 oldMousePos = CameraControls.Instance.Camera.WorldToScreenPoint(newPosition);
+            Mouse.Instance.PrepMove(newPosition);
 
             newPosition += delta;
 
-            Vector3 newMousePos = CameraControls.Instance.Camera.WorldToScreenPoint(newPosition);
-
-            Mouse.Instance.Position += (Vector2)(newMousePos - oldMousePos);
+            Mouse.Instance.ExecMove(newPosition);
         }
     }
 

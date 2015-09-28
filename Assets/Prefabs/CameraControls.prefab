@@ -352,6 +352,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c847bbd7cb831a48b258bd5f01f8a6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grabber: {fileID: 11433718}
   enableWASD: 0
   enableQE: 1
 --- !u!114 &11488404

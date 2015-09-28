@@ -88,6 +88,20 @@ public class Mouse : Singleton<Mouse>
         }
     }
 
+    private Vector3 worldPosCache;
+    private Vector3 screenPosCache;
+    public void PrepMove(Vector3 pos)
+    {
+        worldPosCache = pos;
+        screenPosCache = CameraControls.Instance.Camera.WorldToScreenPoint(pos);
+    }
+
+    public void ExecMove(Vector3 pos)
+    {
+        Vector3 newScreenPos = CameraControls.Instance.Camera.WorldToScreenPoint(pos);
+        Position += (Vector2)(newScreenPos - screenPosCache);
+    }
+
     public Vector2 Position { 
         get { return trans.position; }
         set { trans.position = value; }

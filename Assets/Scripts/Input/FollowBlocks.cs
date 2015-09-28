@@ -33,10 +33,9 @@ public class FollowBlocks : MonoBehaviour
 
         if(grabber.heldPiece != null)
         {
-            Vector3 oldAnchorScreen = CameraControls.Instance.Camera.WorldToScreenPoint(grabber.heldPiece.position);
+            Mouse.Instance.PrepMove(grabber.heldPiece.position);
             transform.position = Vector3.Lerp(transform.position, com, Time.deltaTime);
-            Vector3 newAnchorScreen = CameraControls.Instance.Camera.WorldToScreenPoint(grabber.heldPiece.position);
-            Mouse.Instance.Position += (Vector2)(newAnchorScreen - oldAnchorScreen);
+            Mouse.Instance.ExecMove(grabber.heldPiece.position);
         }
         else
         {
