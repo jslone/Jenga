@@ -47,7 +47,7 @@ public class Mouse : Singleton<Mouse>, Pointer
 
     public Vector2 Delta { get; private set; }
 
-    public MouseInteractable LastOver { get; set; }
+    public Collider LastOver { get; set; }
 
     public Ray Ray
     {
@@ -57,4 +57,6 @@ public class Mouse : Singleton<Mouse>, Pointer
     public bool isDown { get { return Input.GetMouseButtonDown((int)MouseButton.Left); } }
     public bool isUp { get { return Input.GetMouseButtonUp((int)MouseButton.Left); } }
     public bool isHeld { get { return Input.GetMouseButton((int)MouseButton.Left); } }
+    public bool Active { get { return Input.mousePresent; } }
+    public MouseInteractable[] LastClicked { get; set; }
 }

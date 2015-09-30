@@ -16,6 +16,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &111642
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 419904}
+  - 33: {fileID: 3320762}
+  - 23: {fileID: 2330826}
+  - 114: {fileID: 11486758}
+  m_Layer: 0
+  m_Name: HandCursor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &118376
 GameObject:
   m_ObjectHideFlags: 1
@@ -31,8 +49,6 @@ GameObject:
   - 114: {fileID: 11433718}
   - 114: {fileID: 11455380}
   - 114: {fileID: 11474116}
-  - 114: {fileID: 11436466}
-  - 114: {fileID: 11415302}
   - 114: {fileID: 11427456}
   - 20: {fileID: 2026674}
   - 114: {fileID: 11475386}
@@ -139,6 +155,18 @@ Transform:
   - {fileID: 22438684}
   m_Father: {fileID: 430538}
   m_RootOrder: 1
+--- !u!4 &419904
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 111642}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: .100000001, y: .100000001, z: .100000001}
+  m_Children: []
+  m_Father: {fileID: 430538}
+  m_RootOrder: 2
 --- !u!4 &430538
 Transform:
   m_ObjectHideFlags: 1
@@ -151,6 +179,7 @@ Transform:
   m_Children:
   - {fileID: 22498880}
   - {fileID: 419574}
+  - {fileID: 419904}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &436304
@@ -211,6 +240,37 @@ Camera:
   m_StereoConvergence: 10
   m_StereoSeparation: .0219999999
   m_StereoMirrorMode: 0
+--- !u!23 &2330826
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 111642}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 2100000, guid: f4f798a9e5e24354b854e45cee8a30d7, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 1
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 1
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!33 &3320762
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 111642}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!65 &6546080
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -237,19 +297,6 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 118376}
   m_Enabled: 1
---- !u!114 &11415302
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 118376}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c71ec63b0afb608488ac9dfd9323efe6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Duration: 30
-  Scale: 100
 --- !u!114 &11417070
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -290,9 +337,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   separateLeftRight: 1
   leftGraphicsModel: {fileID: 11400010, guid: 87599a986f5ead948b978c71aba50e9d, type: 2}
-  leftPhysicsModel: {fileID: 11460542, guid: dc02f2d83c1ac4b4d9b4ec82df1b1732, type: 2}
+  leftPhysicsModel: {fileID: 0}
   rightGraphicsModel: {fileID: 11400010, guid: 7d840a31495f2eb498e35348119a1204, type: 2}
-  rightPhysicsModel: {fileID: 11460542, guid: dc02f2d83c1ac4b4d9b4ec82df1b1732, type: 2}
+  rightPhysicsModel: {fileID: 0}
   toolModel: {fileID: 0}
   isHeadMounted: 0
   mirrorZAxis: 0
@@ -352,19 +399,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c42dd932741f9d2449551da4e51c3b0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &11436466
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 118376}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58f986e87b2e3ef438bd60ab363818a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  grabber: {fileID: 11433718}
-  grabbedShader: {fileID: 4800000, guid: 4424882428cfad94d945dd58599ce259, type: 3}
 --- !u!114 &11441032
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -435,6 +469,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   handController: {fileID: 11432038}
   PinchTolerance: .899999976
+--- !u!114 &11486758
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 111642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab8ffecf077aec34cb8bf8e9d1f8c7c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxDistance: 10
 --- !u!114 &11488404
 MonoBehaviour:
   m_ObjectHideFlags: 1

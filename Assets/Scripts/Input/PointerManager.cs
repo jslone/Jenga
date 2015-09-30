@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class MouseInteractable : MonoBehaviour
 {
@@ -25,11 +26,25 @@ public class MouseInteractable : MonoBehaviour
 
 public interface Pointer
 {
-    MouseInteractable LastOver { get; set; }
+    Collider LastOver { get; set; }
+    MouseInteractable[] LastClicked { get; set; }
     Ray Ray { get; }
     bool isDown { get; }
     bool isUp { get; }
     bool isHeld { get; }
+    bool Active { get; }
+}
+
+static class ForEachExtension
+{
+    public static void ForEach<T>(this IEnumerable<T> enumeration, System.Action<T> action)
+    {
+        if (enumeration == null) return;
+        foreach (T item in enumeration)
+        {
+            action(item);
+        }
+    }
 }
 
 [RequireComponent(typeof(RectTransform))]
@@ -47,52 +62,54 @@ public class PointerManager : Singleton<PointerManager>
     {
         foreach(Pointer p in pointers)
         {
-            UpdateInteractibles(p);
+            if(p.Active) UpdateInteractibles(p);
         }
     }
 
     void UpdateInteractibles(Pointer pointer)
     {
-        MouseInteractable lastOver = pointer.LastOver;
+        Collider lastOver = pointer.LastOver;
 
         RaycastHit hitInfo;
         if (Physics.Raycast(pointer.Ray, out hitInfo))
         {
-            MouseInteractable hit = hitInfo.collider.GetComponent<MouseInteractable>();
+            Collider hit = hitInfo.collider;
+            MouseInteractable[] interactibles = hit.GetComponentsInChildren<MouseInteractable>();
+            
             
             if (hit != lastOver)
             {
                 if (lastOver != null)
                 {
-                    lastOver.cOnMouseExit();
+                    lastOver.GetComponentsInChildren<MouseInteractable>().ForEach(i => i.cOnMouseExit());
                 }
-                if (hit != null)
-                {
-                    hit.cOnMouseEnter();
-                }
+                interactibles.ForEach(i => i.cOnMouseEnter());
                 pointer.LastOver = hit;
             }
-            if (lastOver != null)
+            else
             {
-                lastOver.cOnMouseStay();
-                if (pointer.isDown)
-                {
-                    lastOver.cOnMouseDown();
-                }
-                if (pointer.isUp)
-                {
-                    lastOver.cOnMouseUp();
-                }
-                if (pointer.isHeld)
-                {
-                    lastOver.cOnMouseHold();
-                }
+                interactibles.ForEach(i => i.cOnMouseStay());
+            }
+            if (pointer.isDown)
+            {
+                interactibles.ForEach(i => i.cOnMouseDown());
+                pointer.LastClicked = interactibles;
+            }
+            if (pointer.isHeld)
+            {
+                interactibles.ForEach(i => i.cOnMouseHold());
             }
         }
         else
         {
-            if (lastOver != null) lastOver.cOnMouseExit();
+            if (lastOver != null) lastOver.GetComponentsInChildren<MouseInteractable>().ForEach(i => i.cOnMouseExit());
             pointer.LastOver = null;
+        }
+
+        if (pointer.isUp)
+        {
+            pointer.LastClicked.ForEach(i => i.cOnMouseUp());
+            pointer.LastClicked = null;
         }
     }
 }

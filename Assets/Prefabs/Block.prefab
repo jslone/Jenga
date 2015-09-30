@@ -61,6 +61,7 @@ GameObject:
   - 33: {fileID: 3367468}
   - 23: {fileID: 2372536}
   - 95: {fileID: 9554380}
+  - 114: {fileID: 11447392}
   m_Layer: 0
   m_Name: jengablock
   m_TagString: Untagged
@@ -301,7 +302,7 @@ GameObject:
   - 82: {fileID: 8288070}
   - 82: {fileID: 8223256}
   - 114: {fileID: 11469942}
-  - 114: {fileID: 11400592}
+  - 114: {fileID: 11412906}
   m_Layer: 8
   m_Name: Block
   m_TagString: Block
@@ -1143,18 +1144,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &11400592
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 194166}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d12fce2cb68b9b44d965cab7e28b174b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rend: {fileID: 2372536}
 --- !u!114 &11407834
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1166,6 +1155,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d18178aed237cfa46ac31f3625c9d8a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11412906
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 194166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75880c0553fcc7541adf198b68c07330, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heldBlockMaterial: {fileID: 13400000, guid: d59027a561a34b0438e432030c528211, type: 2}
+  unheldBlockMaterial: {fileID: 13400000, guid: b3249ca163c7e6f45acdd9fdcd9f44da,
+    type: 2}
 --- !u!114 &11423686
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1214,6 +1217,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d18178aed237cfa46ac31f3625c9d8a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11447392
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 122670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f588418d23e71d24f89ce6636d77535a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clickedMaterials:
+  - {fileID: 2100000, guid: 07b09a441b2a06742a1678fbd8cf3463, type: 2}
+  - {fileID: 2100000, guid: 1ee4d696153744d429406b072fc9f52a, type: 2}
+  - {fileID: 2100000, guid: 8be7694513f41154281176db4d36b41e, type: 2}
+  hoverMaterials:
+  - {fileID: 2100000, guid: cf8271fef4d6a4d47be252a87b01cbb3, type: 2}
+  - {fileID: 2100000, guid: b43a8cd422eb6f6459b821dd2c454ab4, type: 2}
+  - {fileID: 2100000, guid: 50c45bf96ea7bde4cb2af91b0effa108, type: 2}
 --- !u!114 &11447854
 MonoBehaviour:
   m_ObjectHideFlags: 1

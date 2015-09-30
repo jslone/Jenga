@@ -154,10 +154,6 @@ public class PlanarControls : Singleton<PlanarControls>
 
     void SetPieceHeld(bool held)
     {
-        heldPiece.useGravity = !held;
-        heldPiece.freezeRotation = held;
-        heldPiece.GetComponent<Collider>().material = held ? heldBlockMaterial : unheldBlockMaterial;
-        heldPiece.transform.FindChild("whenHeld").gameObject.SetActive(held);
         followControls.CurrentHeldBias = 1.0f;
     }
 }

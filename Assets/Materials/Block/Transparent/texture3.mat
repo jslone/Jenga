@@ -6,8 +6,8 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Hand
-  m_Shader: {fileID: 4800000, guid: 9ce107479d11178d11005b9844295342, type: 3}
+  m_Name: texture3
+  m_Shader: {fileID: 4800000, guid: 4424882428cfad94d945dd58599ce259, type: 3}
   m_ShaderKeywords: _EMISSION
   m_LightmapFlags: 1
   m_CustomRenderQueue: 2000
@@ -19,7 +19,7 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 0}
+          m_Texture: {fileID: 2800000, guid: 66144f742a2f05e4c8793d72e30db42a, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -78,34 +78,6 @@ Material:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _Ramp
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _ToonShade
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _SpecGlossMap
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _Reflections
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
     m_Floats:
       data:
         first:
@@ -121,16 +93,12 @@ Material:
         second: .5
       data:
         first:
-          name: _Shininess
-        second: .100000001
-      data:
-        first:
           name: _Smoothness
-        second: 0
+        second: .5
       data:
         first:
           name: _Metalic
-        second: 0
+        second: .5
       data:
         first:
           name: _Alpha
@@ -171,100 +139,16 @@ Material:
         first:
           name: _Mode
         second: 0
-      data:
-        first:
-          name: _Stencil
-        second: 0
-      data:
-        first:
-          name: _StencilComp
-        second: 8
-      data:
-        first:
-          name: _StencilOp
-        second: 0
-      data:
-        first:
-          name: _StencilReadMask
-        second: 255
-      data:
-        first:
-          name: _StencilWriteMask
-        second: 255
-      data:
-        first:
-          name: _ColorMask
-        second: 15
-      data:
-        first:
-          name: _Outline
-        second: .00200000009
-      data:
-        first:
-          name: _ColorSpaceGamma
-        second: 1
-      data:
-        first:
-          name: _Fade
-        second: 0
-      data:
-        first:
-          name: _Extrude
-        second: .00800000038
-      data:
-        first:
-          name: _Intersection
-        second: .0350000001
-      data:
-        first:
-          name: _IntersectionEffectBrightness
-        second: 100
-      data:
-        first:
-          name: _MinThreshold
-        second: .100000001
-      data:
-        first:
-          name: _MaxThreshold
-        second: .200000003
-      data:
-        first:
-          name: _GlowThreshold
-        second: .5
-      data:
-        first:
-          name: _GlowPower
-        second: 10
-      data:
-        first:
-          name: _Min
-        second: .100000001
-      data:
-        first:
-          name: _Max
-        second: .300000012
     m_Colors:
       data:
         first:
           name: _EmissionColor
-        second: {r: .318854511, g: .312830001, b: .409999996, a: 1}
+        second: {r: .323529422, g: .130264848, b: .0975346044, a: 1}
       data:
         first:
           name: _Color
-        second: {r: .733999968, g: .73506397, b: 1, a: 1}
-      data:
-        first:
-          name: _SpecColor
-        second: {r: .200000003, g: .200000003, b: .200000003, a: 1}
+        second: {r: .917647064, g: .674509823, b: .619607866, a: 1}
       data:
         first:
           name: _Albedo
         second: {r: 1, g: 1, b: 1, a: 1}
-      data:
-        first:
-          name: _Emission
-        second: {r: 0, g: 0, b: 0, a: 0}
-      data:
-        first:
-          name: _OutlineColor
-        second: {r: 0, g: 0, b: 0, a: 1}
