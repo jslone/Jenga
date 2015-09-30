@@ -55,6 +55,7 @@ public class OnMouseHoldEvent : MouseInteractable
     {
         rend.material.color = oColor;
         isHover = false;
+        cOnMouseUp();
     }
 
     public override void cOnMouseEnter()
