@@ -8,7 +8,8 @@ public class DragableBlock : MouseInteractable
     public static List<DragableBlock> held;
     public PhysicMaterial heldBlockMaterial;
     public PhysicMaterial unheldBlockMaterial;
-    public float heldDragMultiplier = 10.0f;
+    public float heldDrag = 10.0f;
+    private float unheldDrag;
     public float followAcceleration = 2.0f;
 
     new Rigidbody rigidbody;
@@ -26,13 +27,14 @@ public class DragableBlock : MouseInteractable
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
+        unheldDrag = rigidbody.drag;
     }
 
     void FixedUpdate()
     {
         if (heldBy != null)
         {
-            Vector3 force = (heldBy.WorldPosition - (rigidbody.position + offset)) * Time.fixedDeltaTime * heldDragMultiplier;
+            Vector3 force = (heldBy.WorldPosition - (rigidbody.position + offset)) * Time.fixedDeltaTime * heldDrag;
             rigidbody.AddForce(force, ForceMode.Impulse);
             FollowBlocks.Instance.CurrentHeldBias += followAcceleration * force.magnitude;
         }
@@ -44,15 +46,13 @@ public class DragableBlock : MouseInteractable
         rigidbody.freezeRotation = held;
         rigidbody.GetComponent<Collider>().material = held ? heldBlockMaterial : unheldBlockMaterial;
         rigidbody.transform.FindChild("whenHeld").gameObject.SetActive(held);
-        
+        rigidbody.drag = held ? heldDrag : unheldDrag;
         if(held)
         {
-            rigidbody.drag *= heldDragMultiplier;
             DragableBlock.held.Add(this);
         }
         else
         {
-            rigidbody.drag /= heldDragMultiplier;
             DragableBlock.held.Remove(this);
         }
     }

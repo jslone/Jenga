@@ -3,7 +3,6 @@ using System.Collections;
 
 public class TrackHand : MonoBehaviour
 {
-    public float maxDistance = 5.0f;
     new Renderer renderer;
 
     // Use this for initialization
