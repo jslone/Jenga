@@ -3,9 +3,9 @@ using System.Collections;
 
 public class FollowBlocks : Singleton<FollowBlocks>
 {
-    public PlanarControls grabber;
     public float CurrentHeldBias = 1.0f;
-    public float MaxHeldBias = 3.0f;
+    public float MaxHeldBias = 10.0f;
+    public float tunedDistance = 4.5f;
     GameObject[] blocks;
 
     void Awake()
@@ -29,9 +29,11 @@ public class FollowBlocks : Singleton<FollowBlocks>
             com += block.transform.position;
         }
 
+        float bias = (Mathf.Min(CurrentHeldBias, MaxHeldBias) - 1.0f) * (tunedDistance / CameraControls.Instance.Distance);
+
         foreach(DragableBlock block in DragableBlock.held)
         {
-            com += (Mathf.Min(CurrentHeldBias, MaxHeldBias) - 1.0f) * block.transform.position;
+            com += bias * block.transform.position;
         }
 
         com /= blocks.Length;

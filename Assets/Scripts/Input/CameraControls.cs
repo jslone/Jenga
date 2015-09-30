@@ -6,7 +6,7 @@ public class CameraControls : Singleton<CameraControls>
 {
     public FollowBlocks followControls;
     public Vector3 Focus { get { return transform.parent.position; } }
-    float Distance;
+    public float Distance;
     public Camera Camera;
 
     public float RotationalSensitivity = 1.0f;

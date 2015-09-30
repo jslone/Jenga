@@ -31,7 +31,6 @@ public class Mouse : Singleton<Mouse>, Pointer
         // Move along locked positions
         if((isDown || isHeld) && LastClicked != null && LastClicked.Where(i => i is DragableBlock).Count() > 0)
         {
-            Vector3 oldPosition = transform.position;
             if(mouseMoved)
             {
                 Vector3 cameraToOldPosition = transform.position - Camera.transform.position;
