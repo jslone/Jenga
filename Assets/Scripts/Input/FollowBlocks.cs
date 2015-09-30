@@ -1,12 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class FollowBlocks : MonoBehaviour
+public class FollowBlocks : Singleton<FollowBlocks>
 {
     public PlanarControls grabber;
     public float CurrentHeldBias = 1.0f;
     public float MaxHeldBias = 3.0f;
     GameObject[] blocks;
+
+    void Awake()
+    {
+        Init(this);
+    }
 
     // Use this for initialization
     void Start()
@@ -24,23 +29,13 @@ public class FollowBlocks : MonoBehaviour
             com += block.transform.position;
         }
 
-        if (grabber.heldPiece != null)
+        foreach(DragableBlock block in DragableBlock.held)
         {
-            com += (Mathf.Min(CurrentHeldBias,MaxHeldBias) - 1.0f) * grabber.heldPiece.position;
+            com += (Mathf.Min(CurrentHeldBias, MaxHeldBias) - 1.0f) * block.transform.position;
         }
 
         com /= blocks.Length;
-
-        if(grabber.heldPiece != null)
-        {
-            Mouse.Instance.PrepMove(grabber.heldPiece.position);
-            transform.position = Vector3.Lerp(transform.position, com, Time.deltaTime);
-            Mouse.Instance.ExecMove(grabber.heldPiece.position);
-        }
-        else
-        {
-            transform.position = Vector3.Lerp(transform.position, com, Time.deltaTime);
-        }
+        transform.position = Vector3.Lerp(transform.position, com, Time.deltaTime);
         
     }
 }

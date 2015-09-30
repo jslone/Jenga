@@ -16,7 +16,7 @@ public class GameOver : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (onTable.Count > 4 || (onTable.Count == 4 && !onTable.Contains(grabber.heldPiece)))
+        if (onTable.Count > 4)
         {
             // now ya done son
             GameObject[] blocks = GameObject.FindGameObjectsWithTag("Block");

@@ -47,7 +47,7 @@ public class HandControls : Singleton<HandControls>, Pointer
             Finger indexFinger = currentHand.Fingers.Where(f => f.Type == Finger.FingerType.TYPE_INDEX).SingleOrDefault();
             if(indexFinger != null && indexFinger.IsValid)
             {
-                Vector3 newPosition = indexFinger.StabilizedTipPosition.ToUnityScaled();
+                Vector3 newPosition = indexFinger.TipPosition.ToUnityScaled();
                 if(Time.frameCount - 1 == lastFramePositionUpdated)
                 {
                     Delta = handController.transform.TransformVector(newPosition - lastPosition);
@@ -65,7 +65,7 @@ public class HandControls : Singleton<HandControls>, Pointer
             {
                 if(f.Type == Finger.FingerType.TYPE_INDEX || f.Type == Finger.FingerType.TYPE_THUMB)
                 {
-                    middle += f.StabilizedTipPosition.ToUnityScaled();
+                    middle += f.TipPosition.ToUnityScaled();
                 }
             }
             middle /= 2;
@@ -86,7 +86,7 @@ public class HandControls : Singleton<HandControls>, Pointer
             //Vector3 centerOfFingers = Vector3.zero;
             //foreach (Finger f in currentHand.Fingers)
             //{
-            //    centerOfFingers += f.StabilizedTipPosition.ToUnityScaled();
+            //    centerOfFingers += f.TipPosition.ToUnityScaled();
             //}
             //centerOfFingers /= currentHand.Fingers.Count;
 
@@ -172,7 +172,7 @@ public class HandControls : Singleton<HandControls>, Pointer
     public bool Active { get { return currentHand != null; } }
     public MouseInteractable[] LastClicked {get; set; }
     public Vector3 Delta { get; private set; }
-
+    public Vector3 WorldPosition { get { return betweenFingers; } }
     private Vector3 lastPosition;
     private int lastFramePositionUpdated = -2;
 }

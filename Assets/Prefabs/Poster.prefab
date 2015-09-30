@@ -128,6 +128,7 @@ GameObject:
   - 223: {fileID: 22344968}
   - 114: {fileID: 11475988}
   - 114: {fileID: 11417588}
+  - 65: {fileID: 6589186}
   m_Layer: 5
   m_Name: Poster
   m_TagString: Untagged
@@ -284,6 +285,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!65 &6589186
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 125522}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 6, y: 9, z: .100000001}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &11400176
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -474,7 +487,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: .684000015, g: .684000015, b: .583451986, a: 1}
+  m_Color: {r: .632352948, g: .371972322, b: .371972322, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

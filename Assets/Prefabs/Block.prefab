@@ -828,7 +828,7 @@ Rigidbody:
   m_GameObject: {fileID: 194166}
   serializedVersion: 2
   m_Mass: .100000001
-  m_Drag: 0
+  m_Drag: 1
   m_AngularDrag: 1
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -1169,6 +1169,8 @@ MonoBehaviour:
   heldBlockMaterial: {fileID: 13400000, guid: d59027a561a34b0438e432030c528211, type: 2}
   unheldBlockMaterial: {fileID: 13400000, guid: b3249ca163c7e6f45acdd9fdcd9f44da,
     type: 2}
+  heldDragMultiplier: 10
+  followAcceleration: 2
 --- !u!114 &11423686
 MonoBehaviour:
   m_ObjectHideFlags: 1

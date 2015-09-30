@@ -1,11 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
 
 public class KeyboardControls : MonoBehaviour
 {
 
     public PlanarControls grabber;
-    private Rigidbody currentBlock { get { return grabber.heldPiece; } }
+    private Rigidbody currentBlock
+    {
+        get
+        {
+            DragableBlock block = DragableBlock.held.FirstOrDefault();
+            return block == null ? null : block.GetComponent<Rigidbody>();
+        }
+    }
 
     public bool enableWASD;
     public bool enableQE;

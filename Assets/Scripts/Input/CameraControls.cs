@@ -17,7 +17,7 @@ public class CameraControls : Singleton<CameraControls>
     private Quaternion _rotationCache;
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         
         if(Init(this))
@@ -34,20 +34,8 @@ public class CameraControls : Singleton<CameraControls>
         if(Input.GetMouseButton((int)MouseButton.Right))
         {
             followControls.CurrentHeldBias = 1.0f;
-            if (followControls.grabber.heldPiece != null)
-            {
-                Vector3 pos = followControls.grabber.heldPiece.position;
-                Mouse.Instance.PrepMove(pos);
-                this.transform.RotateAround(Focus, Vector3.up, Input.GetAxis("Horizontal"));
-                this.transform.RotateAround(Focus, transform.right, -Input.GetAxis("Vertical"));
-                Mouse.Instance.PrepMove(pos);
-            }
-            else
-            {
-                this.transform.RotateAround(Focus, Vector3.up, Input.GetAxis("Horizontal"));
-                this.transform.RotateAround(Focus, transform.right, -Input.GetAxis("Vertical"));
-            }
-            
+            this.transform.RotateAround(Focus, Vector3.up, Input.GetAxis("Horizontal"));
+            this.transform.RotateAround(Focus, transform.right, -Input.GetAxis("Vertical"));
         }
         if(Input.GetAxis("Zoom") != 0)
         {
