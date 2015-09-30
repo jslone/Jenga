@@ -7,10 +7,11 @@ using Leap;
 public class HandControls : Singleton<HandControls>, Pointer
 {
     public HandController handController;
-    public float PinchTolerance = 0.9f;
-
+    public float PinchActivation = 0.6f;
+    public float PinchRealse = 0.3f;
+    public float SelectRadius = 0.3f;
     private Hand currentHand;
-
+    public Vector3 betweenFingers { get;  private set; }
     private Ray zero = new Ray();
     private Ray handRay = new Ray();
     
@@ -55,12 +56,22 @@ public class HandControls : Singleton<HandControls>, Pointer
                 {
                     Delta = Vector3.zero;
                 }
-                Debug.Log(Delta);
                 lastPosition = newPosition;
                 lastFramePositionUpdated = Time.frameCount;
             }
-            
 
+            Vector3 middle = Vector3.zero;
+            foreach(Finger f in currentHand.Fingers)
+            {
+                if(f.Type == Finger.FingerType.TYPE_INDEX || f.Type == Finger.FingerType.TYPE_THUMB)
+                {
+                    middle += f.StabilizedTipPosition.ToUnityScaled();
+                }
+            }
+            middle /= 2;
+
+            betweenFingers = handController.transform.TransformPoint(middle);
+            
             handRay.origin = handController.transform.TransformPoint(currentHand.PalmPosition.ToUnityScaled());
 
             Vector3 localDir = (currentHand.Direction.ToUnityScaled() + currentHand.PalmNormal.ToUnityScaled()).normalized;
@@ -114,12 +125,12 @@ public class HandControls : Singleton<HandControls>, Pointer
 
             Debug.DrawRay(handRay.origin, 10 * handRay.direction, Color.red);
 
-            if(currentHand.PinchStrength >= PinchTolerance && !isHeld)
+            if(currentHand.PinchStrength >= PinchActivation && !isHeld)
             {
                 isDown = true;
                 isHeld = true;
             }
-            else if (currentHand.PinchStrength < PinchTolerance && isHeld)
+            else if (currentHand.PinchStrength < PinchRealse && isHeld)
             {
                 isUp = true;
                 isHeld = false;
@@ -133,6 +144,23 @@ public class HandControls : Singleton<HandControls>, Pointer
                 isHeld = false;
                 isUp = true;
             }
+        }
+    }
+
+    public Collider CurrentOver
+    {
+        get
+        {
+            Collider[] cols = Physics.OverlapSphere(betweenFingers, SelectRadius);
+            Collider closest = null;
+            foreach (Collider col in cols)
+            {
+                if (closest == null || (closest.transform.position - betweenFingers).sqrMagnitude > (col.transform.position - betweenFingers).sqrMagnitude)
+                {
+                    closest = col;
+                }
+            }
+            return closest;
         }
     }
 

@@ -27,6 +27,7 @@ public class MouseInteractable : MonoBehaviour
 public interface Pointer
 {
     Collider LastOver { get; set; }
+    Collider CurrentOver { get; }
     MouseInteractable[] LastClicked { get; set; }
     Ray Ray { get; }
     bool isDown { get; }
@@ -70,12 +71,10 @@ public class PointerManager : Singleton<PointerManager>
     {
         Collider lastOver = pointer.LastOver;
 
-        RaycastHit hitInfo;
-        if (Physics.Raycast(pointer.Ray, out hitInfo))
+        Collider hit = pointer.CurrentOver;
+        if (hit != null)
         {
-            Collider hit = hitInfo.collider;
             MouseInteractable[] interactibles = hit.GetComponentsInChildren<MouseInteractable>();
-            
             
             if (hit != lastOver)
             {

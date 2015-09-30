@@ -10,6 +10,8 @@ public class TrackHand : MonoBehaviour
     void Start()
     {
         renderer = GetComponent<Renderer>();
+        float size = HandControls.Instance.SelectRadius;
+        transform.localScale = new Vector3(size, size, size);
     }
 
     // Update is called once per frame
@@ -18,15 +20,7 @@ public class TrackHand : MonoBehaviour
         renderer.enabled = HandControls.Instance.Active;
         if(HandControls.Instance.Active)
         {
-            RaycastHit info;
-            if (Physics.Raycast(HandControls.Instance.Ray, out info, maxDistance))
-            {
-                transform.position = info.point;
-            }
-            else
-            {
-                transform.position = HandControls.Instance.Ray.origin + maxDistance * HandControls.Instance.Ray.direction;
-            }
+            transform.position = HandControls.Instance.betweenFingers;
         }
     }
 }

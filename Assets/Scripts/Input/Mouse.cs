@@ -47,6 +47,19 @@ public class Mouse : Singleton<Mouse>, Pointer
 
     public Vector2 Delta { get; private set; }
 
+    public Collider CurrentOver
+    {
+        get
+        {
+            RaycastHit hitInfo;
+            if(Physics.Raycast(Ray, out hitInfo))
+            {
+                return hitInfo.collider;
+            }
+            return null;
+        }
+    }
+
     public Collider LastOver { get; set; }
 
     public Ray Ray
