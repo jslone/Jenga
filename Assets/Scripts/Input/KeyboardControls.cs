@@ -21,7 +21,7 @@ public class KeyboardControls : MonoBehaviour
 
             if (enableQE)
             {
-                Vector3 rotate = new Vector3(0, rotation, 0);
+                //Vector3 rotate = new Vector3(0, rotation, 0);
                 //currentBlock.transform.Rotate(rotate, 100 * Time.deltaTime, Space.World);
                 //currentBlock.MoveRotation(currentBlock.rotation * Quaternion.Euler(0, rotation * 100 * Time.deltaTime, 0));
                 currentBlock.rotation *= Quaternion.Euler(0, rotation * 100 * Time.deltaTime, 0);

@@ -121,7 +121,6 @@ public class PlanarControls : Singleton<PlanarControls>
             // only one plane should be active at a time
             GameObject currentPlane = GameObject.FindGameObjectWithTag("Plane");
 
-            Ray r = Mouse.Instance.Ray;
             Vector3 direction;
             if (CurrentSpace == Spaces.Camera)
             {
