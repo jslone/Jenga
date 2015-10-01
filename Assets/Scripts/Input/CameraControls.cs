@@ -9,6 +9,7 @@ public class CameraControls : Singleton<CameraControls>
     public Camera Camera;
 
     public float RotationalSensitivity = 1.0f;
+    public float HandRotationalSensitivity = 20.0f;
     public float ZoomSensitivity = 1.0f;
     public float ZoomNearClip = 0.1f;
 
@@ -34,6 +35,13 @@ public class CameraControls : Singleton<CameraControls>
             followControls.CurrentHeldBias = 1.0f;
             this.transform.RotateAround(Focus, Vector3.up, Input.GetAxis("Horizontal"));
             this.transform.RotateAround(Focus, transform.right, -Input.GetAxis("Vertical"));
+        }
+        if(HandControls.Instance.Swipe.sqrMagnitude > 0)
+        {
+            Vector2 movement = HandRotationalSensitivity * HandControls.Instance.Swipe;
+            followControls.CurrentHeldBias = 1.0f;
+            this.transform.RotateAround(Focus, Vector3.up, movement.x);
+            this.transform.RotateAround(Focus, transform.right, -movement.y);
         }
         if(Input.GetAxis("Zoom") != 0)
         {

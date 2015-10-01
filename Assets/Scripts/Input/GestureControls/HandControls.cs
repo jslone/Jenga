@@ -26,6 +26,7 @@ public class HandControls : Singleton<HandControls>, Pointer
         zero.origin = Vector3.zero;
         zero.direction = Vector3.zero;
         PointerManager.Instance.pointers.Add(this);
+        handController.GetLeapController().EnableGesture(Gesture.GestureType.TYPE_SWIPE);
     }
 
     // Update is called once per frame
@@ -145,6 +146,22 @@ public class HandControls : Singleton<HandControls>, Pointer
                 isUp = true;
             }
         }
+
+        GestureList gestures = frame.Gestures();
+
+        if(gestures.Count() == 0)
+        {
+            Swipe = Vector2.zero;
+        }
+
+        foreach(Gesture g in gestures)
+        {
+            SwipeGesture swipe = new SwipeGesture(g);
+            if(swipe != null)
+            {
+                Swipe += (Vector2)(swipe.DurationSeconds * swipe.Speed * swipe.Direction.ToUnityScaled());
+            }
+        }
     }
 
     public Collider CurrentOver
@@ -164,6 +181,7 @@ public class HandControls : Singleton<HandControls>, Pointer
         }
     }
 
+    public Vector2 Swipe { get; private set; }
     public Collider LastOver { get; set; }
     public Ray Ray { get { return currentHand == null ? zero : handRay; } }
     public bool isDown { get; private set; }
