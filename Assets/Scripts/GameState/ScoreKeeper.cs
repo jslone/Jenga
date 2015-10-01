@@ -109,14 +109,13 @@ public class ScoreKeeper : MonoBehaviour {
         // stop timer
         timer.Stop();
 
-        int b = (int)sc;
-        int t = (int)((sc - b) * 10);
+        int b = (int)sc * 100;
 
         int elapsed = (int) timer.getTimeSeconds();
 
-        if (elapsed > 20) elapsed = 0;
+        if (elapsed > 20) elapsed = 20;
 
         timer.Reset();
-        return b * 100 + t + (20 - elapsed) * 5;
+        return b + (20 - elapsed) * 5;
     }
 }
