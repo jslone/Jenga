@@ -91,13 +91,14 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &162214
 GameObject:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 467816}
   - 114: {fileID: 11432038}
+  - 114: {fileID: 11499998}
   m_Layer: 0
   m_Name: HandController
   m_TagString: Untagged
@@ -147,7 +148,7 @@ Transform:
   m_LocalScale: {x: .100000001, y: .100000001, z: .100000001}
   m_Children: []
   m_Father: {fileID: 430538}
-  m_RootOrder: 2
+  m_RootOrder: 3
 --- !u!4 &430538
 Transform:
   m_ObjectHideFlags: 1
@@ -160,6 +161,7 @@ Transform:
   m_Children:
   - {fileID: 419574}
   - {fileID: 492744}
+  - {fileID: 467816}
   - {fileID: 419904}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -181,12 +183,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 162214}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: -1.5, z: 1.5}
+  m_LocalRotation: {x: 0, y: -.925540566, z: 0, w: .37864852}
+  m_LocalPosition: {x: 2.20489264, y: 0, z: 2.24371624}
   m_LocalScale: {x: 6, y: 6, z: 6}
   m_Children: []
-  m_Father: {fileID: 22438684}
-  m_RootOrder: 1
+  m_Father: {fileID: 430538}
+  m_RootOrder: 2
 --- !u!4 &492744
 Transform:
   m_ObjectHideFlags: 1
@@ -332,9 +334,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf5c7cdf9af079644a2a883db12097b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grabber: {fileID: 11433718}
   CurrentHeldBias: 1
   MaxHeldBias: 10
+  tunedDistance: 4.5
 --- !u!114 &11427456
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -410,6 +412,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   followControls: {fileID: 11417070}
+  Distance: 0
   Camera: {fileID: 0}
   RotationalSensitivity: 1
   ZoomSensitivity: 5
@@ -439,7 +442,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab8ffecf077aec34cb8bf8e9d1f8c7c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDistance: 10
 --- !u!114 &11487098
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -454,6 +456,19 @@ MonoBehaviour:
   planarControls: {fileID: 11433718}
   maxDistance: 10
   distanceSpeed: 2
+--- !u!114 &11499998
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 162214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b50739eb5bef6e48a65e1b79fea9e83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toFollow: {fileID: 22438684}
+  offset: {x: 0, y: -1.29999995, z: 1.29999995}
 --- !u!124 &12417336
 Behaviour:
   m_ObjectHideFlags: 1
@@ -472,7 +487,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 436304}
-  - {fileID: 467816}
   m_Father: {fileID: 419574}
   m_RootOrder: 0
   m_AnchorMin: {x: .5, y: .5}
