@@ -173,6 +173,7 @@ public class HandControls : Singleton<HandControls>, Pointer
     public MouseInteractable[] LastClicked {get; set; }
     public Vector3 Delta { get; private set; }
     public Vector3 WorldPosition { get { return betweenFingers; } }
+    public Vector3 LocalPosition { get { return currentHand.PalmPosition.ToUnityScaled(); } }
     private Vector3 lastPosition;
     private int lastFramePositionUpdated = -2;
 }

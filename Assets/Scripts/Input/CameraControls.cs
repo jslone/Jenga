@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(Camera))]
 public class CameraControls : Singleton<CameraControls>
 {
     public FollowBlocks followControls;
@@ -22,7 +21,6 @@ public class CameraControls : Singleton<CameraControls>
         
         if(Init(this))
         {
-            this.Camera = GetComponent<Camera>();
             Distance = this.transform.localPosition.magnitude;
             this.transform.LookAt(Focus);
         }

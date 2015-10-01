@@ -6,7 +6,9 @@ public class FollowBlocks : Singleton<FollowBlocks>
     public float CurrentHeldBias = 1.0f;
     public float MaxHeldBias = 10.0f;
     public float tunedDistance = 4.5f;
+    public float handBias = 10.0f;
     GameObject[] blocks;
+    public Transform handTracker;
 
     void Awake()
     {
@@ -34,6 +36,11 @@ public class FollowBlocks : Singleton<FollowBlocks>
         foreach(DragableBlock block in DragableBlock.held)
         {
             com += bias * block.transform.position;
+        }
+
+        if(HandControls.Instance.Active)
+        {
+            com += handBias * handTracker.localPosition;
         }
 
         com /= blocks.Length;

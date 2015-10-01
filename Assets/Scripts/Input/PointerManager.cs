@@ -103,7 +103,6 @@ static class ForEachExtension
     }
 }
 
-[RequireComponent(typeof(RectTransform))]
 public class PointerManager : Singleton<PointerManager>
 {
     public List<Pointer> pointers = new List<Pointer>();
