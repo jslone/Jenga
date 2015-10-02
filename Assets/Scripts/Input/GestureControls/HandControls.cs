@@ -10,12 +10,14 @@ public class HandControls : Singleton<HandControls>, Pointer
     public float PinchActivation = 0.6f;
     public float PinchRealse = 0.3f;
     public float SelectRadius = 0.3f;
+    public float RotationSpeed = 0.1f;
     private Hand currentHand;
     public Vector3 localBetweenFingers { get; private set; }
     public Vector3 betweenFingers { get { return handController.transform.TransformPoint(localBetweenFingers); } }
     private Ray zero = new Ray();
     private Ray handRay = new Ray();
     
+    private float lastProgress;
     void Awake()
     {
         Init(this);
@@ -27,6 +29,7 @@ public class HandControls : Singleton<HandControls>, Pointer
         zero.origin = Vector3.zero;
         zero.direction = Vector3.zero;
         PointerManager.Instance.pointers.Add(this);
+        handController.GetLeapController().EnableGesture(Gesture.GestureType.TYPE_CIRCLE);
     }
 
     // Update is called once per frame
@@ -135,6 +138,25 @@ public class HandControls : Singleton<HandControls>, Pointer
             {
                 isUp = true;
                 isHeld = false;
+            }
+
+            GestureList gestures = frame.Gestures();
+            foreach(Gesture g in gestures)
+            {
+                if(g.Type == Gesture.GestureType.TYPE_CIRCLE)
+                {
+                    CircleGesture cg = new CircleGesture(g);
+                    
+                    if(g.State == Gesture.GestureState.STATE_UPDATE)
+                    {
+                        float degrees = -Mathf.Sign(Vector3.Dot(cg.Normal.ToUnityScaled(), cg.Pointable.Direction.ToUnityScaled())) * (cg.Progress - lastProgress) * 360;
+
+                        DragableBlock block = DragableBlock.held.FirstOrDefault();
+                        if (block != null)
+                            block.transform.localRotation *= Quaternion.Euler(0, RotationSpeed * degrees, 0);
+                    }
+                    lastProgress = cg.Progress;
+                }
             }
         }
         else

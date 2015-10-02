@@ -412,6 +412,7 @@ MonoBehaviour:
   PinchActivation: .600000024
   PinchRealse: .300000012
   SelectRadius: .300000012
+  RotationSpeed: .25
 --- !u!114 &11428542
 MonoBehaviour:
   m_ObjectHideFlags: 1
