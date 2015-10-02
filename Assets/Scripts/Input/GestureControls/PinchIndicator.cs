@@ -4,6 +4,7 @@ using System.Collections;
 public class PinchIndicator : MonoBehaviour
 {
     public Color PinchColor;
+    public Color HoldColor;
     private Color normalColor;
 
     private Renderer rend;
@@ -21,6 +22,10 @@ public class PinchIndicator : MonoBehaviour
         if(HandControls.Instance.isDown)
         {
             rend.material.color = PinchColor;
+        }
+        if(HandControls.Instance.isHoldindSomething())
+        {
+            rend.material.color = HoldColor;
         }
         if(HandControls.Instance.isUp)
         {
