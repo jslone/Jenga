@@ -9,12 +9,15 @@ public class CameraControls : Singleton<CameraControls>
     public Camera Camera;
 
     public float RotationalSensitivity = 1.0f;
-    public float HandRotationalSensitivity = 20.0f;
+    public float HandRotationalSensitivity = 200.0f;
     public float ZoomSensitivity = 1.0f;
+    public float HandZoomSensitivity = 30.0f;
     public float ZoomNearClip = 0.1f;
 
     private Vector3 _positionCache;
     private Quaternion _rotationCache;
+
+    private Vector3 lastHandPosition;
 
     // Use this for initialization
     void Awake()
@@ -36,18 +39,28 @@ public class CameraControls : Singleton<CameraControls>
             this.transform.RotateAround(Focus, Vector3.up, Input.GetAxis("Horizontal"));
             this.transform.RotateAround(Focus, transform.right, -Input.GetAxis("Vertical"));
         }
-        if(HandControls.Instance.Swipe.sqrMagnitude > 0)
-        {
-            Vector2 movement = HandRotationalSensitivity * HandControls.Instance.Swipe;
-            followControls.CurrentHeldBias = 1.0f;
-            this.transform.RotateAround(Focus, Vector3.up, movement.x);
-            this.transform.RotateAround(Focus, transform.right, -movement.y);
-        }
         if(Input.GetAxis("Zoom") != 0)
         {
             Distance += ZoomSensitivity * Input.GetAxis("Zoom");
             Distance = Mathf.Max(ZoomNearClip, Distance);
             this.transform.position = (this.transform.position - Focus).normalized * Distance + Focus;
+        }
+        if(HandControls.Instance.isDown && HandControls.Instance.LastClicked == null)
+        {
+            lastHandPosition = HandControls.Instance.localBetweenFingers;
+        }   
+        if (HandControls.Instance.isHeld && HandControls.Instance.LastClicked == null)
+        {
+            Vector3 delta = HandControls.Instance.localBetweenFingers - lastHandPosition;
+
+            this.transform.RotateAround(Focus, Vector3.up, HandRotationalSensitivity * delta.x);
+            this.transform.RotateAround(Focus, transform.right, HandRotationalSensitivity * -delta.y);
+
+            Distance += HandZoomSensitivity * delta.z;
+            Distance = Mathf.Max(ZoomNearClip, Distance);
+            this.transform.position = (this.transform.position - Focus).normalized * Distance + Focus;
+
+            lastHandPosition = HandControls.Instance.localBetweenFingers;
         }
     }
 

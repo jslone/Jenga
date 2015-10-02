@@ -11,7 +11,8 @@ public class HandControls : Singleton<HandControls>, Pointer
     public float PinchRealse = 0.3f;
     public float SelectRadius = 0.3f;
     private Hand currentHand;
-    public Vector3 betweenFingers { get;  private set; }
+    public Vector3 localBetweenFingers { get; private set; }
+    public Vector3 betweenFingers { get { return handController.transform.TransformPoint(localBetweenFingers); } }
     private Ray zero = new Ray();
     private Ray handRay = new Ray();
     
@@ -26,7 +27,6 @@ public class HandControls : Singleton<HandControls>, Pointer
         zero.origin = Vector3.zero;
         zero.direction = Vector3.zero;
         PointerManager.Instance.pointers.Add(this);
-        handController.GetLeapController().EnableGesture(Gesture.GestureType.TYPE_SWIPE);
     }
 
     // Update is called once per frame
@@ -71,7 +71,7 @@ public class HandControls : Singleton<HandControls>, Pointer
             }
             middle /= 2;
 
-            betweenFingers = handController.transform.TransformPoint(middle);
+            localBetweenFingers = middle;
             
             handRay.origin = handController.transform.TransformPoint(currentHand.PalmPosition.ToUnityScaled());
 
@@ -144,22 +144,6 @@ public class HandControls : Singleton<HandControls>, Pointer
             {
                 isHeld = false;
                 isUp = true;
-            }
-        }
-
-        GestureList gestures = frame.Gestures();
-
-        if(gestures.Count() == 0)
-        {
-            Swipe = Vector2.zero;
-        }
-
-        foreach(Gesture g in gestures)
-        {
-            SwipeGesture swipe = new SwipeGesture(g);
-            if(swipe != null)
-            {
-                Swipe += (Vector2)(swipe.DurationSeconds * swipe.Speed * swipe.Direction.ToUnityScaled());
             }
         }
     }

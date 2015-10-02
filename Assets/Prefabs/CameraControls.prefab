@@ -474,6 +474,7 @@ MonoBehaviour:
   Distance: 0
   Camera: {fileID: 2023386}
   RotationalSensitivity: 1
+  HandRotationalSensitivity: 200
   ZoomSensitivity: 5
   ZoomNearClip: .100000001
 --- !u!114 &11474116
