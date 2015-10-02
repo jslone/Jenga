@@ -133,6 +133,7 @@ GameObject:
   - 33: {fileID: 3366780}
   - 23: {fileID: 2304250}
   - 114: {fileID: 11486758}
+  - 114: {fileID: 11428542}
   m_Layer: 0
   m_Name: HandCursor
   m_TagString: Untagged
@@ -411,6 +412,18 @@ MonoBehaviour:
   PinchActivation: .600000024
   PinchRealse: .300000012
   SelectRadius: .300000012
+--- !u!114 &11428542
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 170698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ad4bb6069d3de74ab5d6090fc800913, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PinchColor: {r: 1, g: .65882355, b: .65882355, a: 1}
 --- !u!114 &11432038
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -476,7 +489,9 @@ MonoBehaviour:
   RotationalSensitivity: 1
   HandRotationalSensitivity: 200
   ZoomSensitivity: 5
+  HandZoomSensitivity: 50
   ZoomNearClip: .100000001
+  ZoomFarClip: 7
 --- !u!114 &11474116
 MonoBehaviour:
   m_ObjectHideFlags: 1

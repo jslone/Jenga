@@ -13,6 +13,7 @@ public class CameraControls : Singleton<CameraControls>
     public float ZoomSensitivity = 1.0f;
     public float HandZoomSensitivity = 30.0f;
     public float ZoomNearClip = 0.1f;
+    public float ZoomFarClip = 10.0f;
 
     private Vector3 _positionCache;
     private Quaternion _rotationCache;
@@ -42,25 +43,30 @@ public class CameraControls : Singleton<CameraControls>
         if(Input.GetAxis("Zoom") != 0)
         {
             Distance += ZoomSensitivity * Input.GetAxis("Zoom");
-            Distance = Mathf.Max(ZoomNearClip, Distance);
+            Distance = Mathf.Clamp(Distance, ZoomNearClip, ZoomFarClip);
             this.transform.position = (this.transform.position - Focus).normalized * Distance + Focus;
         }
         if(HandControls.Instance.isDown && HandControls.Instance.LastClicked == null)
         {
-            lastHandPosition = HandControls.Instance.localBetweenFingers;
+            lastHandPosition = HandControls.Instance.LocalPosition;
         }   
-        if (HandControls.Instance.isHeld && HandControls.Instance.LastClicked == null)
+        if (HandControls.Instance.isHeld && !HandControls.Instance.isHoldindSomething())
         {
-            Vector3 delta = HandControls.Instance.localBetweenFingers - lastHandPosition;
+            Vector3 delta = HandControls.Instance.LocalPosition - lastHandPosition;
+
+            float distance = (HandControls.Instance.LocalPosition - HandControls.Instance.ElbowPosition).magnitude;
+            float oldDistance = (lastHandPosition - HandControls.Instance.ElbowPosition).magnitude;
+
+            delta.z = distance - oldDistance;
 
             this.transform.RotateAround(Focus, Vector3.up, HandRotationalSensitivity * delta.x);
             this.transform.RotateAround(Focus, transform.right, HandRotationalSensitivity * -delta.y);
 
             Distance += HandZoomSensitivity * delta.z;
-            Distance = Mathf.Max(ZoomNearClip, Distance);
+            Distance = Mathf.Clamp(Distance, ZoomNearClip, ZoomFarClip);
             this.transform.position = (this.transform.position - Focus).normalized * Distance + Focus;
 
-            lastHandPosition = HandControls.Instance.localBetweenFingers;
+            lastHandPosition = HandControls.Instance.LocalPosition;
         }
     }
 

@@ -34,7 +34,7 @@ public class HandControls : Singleton<HandControls>, Pointer
     {
         Frame frame = handController.GetFrame();
         HandList hands = frame.Hands;
-
+        
         if(isUp) isUp = false;
         if(isDown) isDown = false;
         Delta = Vector3.zero;
@@ -175,6 +175,7 @@ public class HandControls : Singleton<HandControls>, Pointer
     public MouseInteractable[] LastClicked {get; set; }
     public Vector3 Delta { get; private set; }
     public Vector3 WorldPosition { get { return betweenFingers; } }
+    public Vector3 ElbowPosition { get { return currentHand.Arm.ElbowPosition.ToUnityScaled(); } }
     public Vector3 LocalPosition { get { return currentHand.PalmPosition.ToUnityScaled(); } }
     private Vector3 lastPosition;
     private int lastFramePositionUpdated = -2;

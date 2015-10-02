@@ -91,7 +91,7 @@ public interface Pointer
     Vector3 WorldPosition { get; }
 }
 
-static class ForEachExtension
+static class PointerExtensions
 {
     public static void ForEach<T>(this IEnumerable<T> enumeration, System.Action<T> action)
     {
@@ -100,6 +100,16 @@ static class ForEachExtension
         {
             action(item);
         }
+    }
+
+    public static bool isHoldindBlock(this Pointer p)
+    {
+        return p.LastClicked != null && p.LastClicked.Where(i => i is DragableBlock).Count() > 0;
+    }
+
+    public static bool isHoldindSomething(this Pointer p)
+    {
+        return p.LastClicked != null && p.LastClicked.Length > 0;
     }
 }
 

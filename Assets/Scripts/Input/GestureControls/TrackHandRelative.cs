@@ -17,7 +17,7 @@ public class TrackHandRelative : MonoBehaviour
     void Update()
     {
         float scale = Scale * transform.parent.position.magnitude / CalibratedDistance;
-        if(HandControls.Instance.Active)
+        if(HandControls.Instance.Active && !(HandControls.Instance.isHeld && HandControls.Instance.LastClicked == null))
         {
             transform.localPosition = Vector3.Lerp(transform.localPosition, scale * (HandControls.Instance.LocalPosition + offset), Time.deltaTime * Speed);
         } else

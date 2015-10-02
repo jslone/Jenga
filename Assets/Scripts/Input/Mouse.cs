@@ -29,7 +29,7 @@ public class Mouse : Singleton<Mouse>, Pointer
         bool mouseMoved = delta.sqrMagnitude > 0;
 
         // Move along locked positions
-        if((isDown || isHeld) && LastClicked != null && LastClicked.Where(i => i is DragableBlock).Count() > 0)
+        if((isDown || isHeld) && this.isHoldindBlock())
         {
             if(mouseMoved)
             {
