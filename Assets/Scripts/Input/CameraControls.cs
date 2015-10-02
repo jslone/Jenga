@@ -37,8 +37,8 @@ public class CameraControls : Singleton<CameraControls>
         if(Input.GetMouseButton((int)MouseButton.Right))
         {
             followControls.CurrentHeldBias = 1.0f;
-            this.transform.RotateAround(Focus, Vector3.up, Input.GetAxis("Horizontal"));
-            this.transform.RotateAround(Focus, transform.right, -Input.GetAxis("Vertical"));
+            RotateHorizontal(Input.GetAxis("Horizontal"));
+            RotateVertical(-Input.GetAxis("Vertical"));
         }
         if(Input.GetAxis("Zoom") != 0)
         {
@@ -52,23 +52,35 @@ public class CameraControls : Singleton<CameraControls>
         }   
         if (HandControls.Instance.isHeld && !HandControls.Instance.isHoldindSomething())
         {
-            Vector3 approxElbow = new Vector3(0, 0, -0.2f);
             Vector3 delta = HandControls.Instance.LocalPosition - lastHandPosition;
+            delta.z = (HandZoomSensitivity * delta.z) * Mathf.Abs(delta.z);
 
-            Debug.Log(HandControls.Instance.LocalPosition);
-            float distance = (HandControls.Instance.LocalPosition - approxElbow).magnitude;
-            float oldDistance = (lastHandPosition - approxElbow).magnitude;
-
-            delta.z = distance - oldDistance;
-
-            this.transform.RotateAround(Focus, Vector3.up, HandRotationalSensitivity * delta.x);
-            this.transform.RotateAround(Focus, transform.right, HandRotationalSensitivity * -delta.y);
+            RotateHorizontal(HandRotationalSensitivity * delta.x);
+            RotateVertical(HandRotationalSensitivity * -delta.y);
 
             Distance += HandZoomSensitivity * delta.z;
             Distance = Mathf.Clamp(Distance, ZoomNearClip, ZoomFarClip);
             this.transform.position = (this.transform.position - Focus).normalized * Distance + Focus;
 
             lastHandPosition = HandControls.Instance.LocalPosition;
+        }
+    }
+
+    private void RotateHorizontal(float degree)
+    {
+        this.transform.RotateAround(Focus, Vector3.up, degree);
+    }
+
+    private void RotateVertical(float degree)
+    {
+        Vector3 pos = transform.localPosition;
+        Quaternion rot = transform.localRotation;
+
+        this.transform.RotateAround(Focus, transform.right, degree);
+        if(transform.position.y <= 0 || Vector3.Dot(transform.up, Vector3.up) < 0)
+        {
+            transform.localPosition = pos;
+            transform.localRotation = rot;
         }
     }
 

@@ -378,7 +378,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 1
-  Scale: 15
+  Scale: 20
   CalibratedDistance: 4.5
   offset: {x: 0, y: -.200000003, z: 0}
 --- !u!114 &11417070
@@ -412,6 +412,7 @@ MonoBehaviour:
   PinchActivation: .600000024
   PinchRealse: .300000012
   SelectRadius: .300000012
+  RotationSpeed: .25
 --- !u!114 &11428542
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -424,6 +425,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PinchColor: {r: 1, g: .65882355, b: .65882355, a: 1}
+  HoldColor: {r: .65882355, g: 1, b: .660188258, a: 1}
 --- !u!114 &11432038
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -491,7 +493,7 @@ MonoBehaviour:
   ZoomSensitivity: 5
   HandZoomSensitivity: 50
   ZoomNearClip: .100000001
-  ZoomFarClip: 7
+  ZoomFarClip: 5
 --- !u!114 &11474116
 MonoBehaviour:
   m_ObjectHideFlags: 1

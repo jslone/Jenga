@@ -40,12 +40,12 @@ public class DragableBlock : MouseInteractable
         }
     }
 
-    void SetPieceHeld(bool held)
+    void SetPieceHeld(bool held, bool isMouse = false)
     {
         rigidbody.useGravity = !held;
         rigidbody.freezeRotation = held;
         rigidbody.GetComponent<Collider>().material = held ? heldBlockMaterial : unheldBlockMaterial;
-        rigidbody.transform.FindChild("whenHeld").gameObject.SetActive(held);
+        rigidbody.transform.FindChild("whenHeld").gameObject.SetActive(held && isMouse);
         rigidbody.drag = held ? heldDrag : unheldDrag;
         if(held)
         {
@@ -62,7 +62,7 @@ public class DragableBlock : MouseInteractable
         heldBy = p;
         offset = p.WorldPosition - transform.position;
         FollowBlocks.Instance.CurrentHeldBias = 1;
-        SetPieceHeld(true);
+        SetPieceHeld(true, p == Mouse.Instance);
     }
 
     public override void cOnMouseUp()

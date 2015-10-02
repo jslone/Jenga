@@ -58,6 +58,7 @@ public class ScoreKeeper : MonoBehaviour {
     public Text text;
     private float maxY;
     public int score;
+    public GameObject confetti;
 
     private GameObject[] tower;
     private GameObject highestBlock;
@@ -100,6 +101,7 @@ public class ScoreKeeper : MonoBehaviour {
                 maxY = cTrans.position.y;
                 score += ComputeScore(maxY);
                 text.text = score.ToString();
+                Instantiate(confetti, cTrans.position, Quaternion.identity);
                 yayAudio.Play();
             } 
         }
