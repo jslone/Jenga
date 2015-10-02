@@ -47,6 +47,7 @@ class Stopwatch
 
 }
 
+[RequireComponent(typeof(AudioSource))]
 public class ScoreKeeper : MonoBehaviour {
 
     /*
@@ -61,9 +62,11 @@ public class ScoreKeeper : MonoBehaviour {
     private GameObject[] tower;
     private GameObject highestBlock;
     private Stopwatch timer = new Stopwatch();
+    private AudioSource yayAudio;
 
 	// Use this for initialization
 	void Start () {
+        yayAudio = this.GetComponent<AudioSource>();
         tower = GameObject.FindGameObjectsWithTag("Block");
         maxY = 0.0f;
 
@@ -75,7 +78,7 @@ public class ScoreKeeper : MonoBehaviour {
             }
         }
 
-
+        
         timer.Start();
     }
 
@@ -96,7 +99,8 @@ public class ScoreKeeper : MonoBehaviour {
                 highestBlock = block;
                 maxY = cTrans.position.y;
                 score += ComputeScore(maxY);
-                text.text = score.ToString();     
+                text.text = score.ToString();
+                yayAudio.Play();
             } 
         }
 
