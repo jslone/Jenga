@@ -52,10 +52,12 @@ public class CameraControls : Singleton<CameraControls>
         }   
         if (HandControls.Instance.isHeld && !HandControls.Instance.isHoldindSomething())
         {
+            Vector3 approxElbow = new Vector3(0, 0, -0.2f);
             Vector3 delta = HandControls.Instance.LocalPosition - lastHandPosition;
 
-            float distance = (HandControls.Instance.LocalPosition - HandControls.Instance.ElbowPosition).magnitude;
-            float oldDistance = (lastHandPosition - HandControls.Instance.ElbowPosition).magnitude;
+            Debug.Log(HandControls.Instance.LocalPosition);
+            float distance = (HandControls.Instance.LocalPosition - approxElbow).magnitude;
+            float oldDistance = (lastHandPosition - approxElbow).magnitude;
 
             delta.z = distance - oldDistance;
 
