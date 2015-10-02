@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: BlockMat2
+  m_Name: BlockMat7
   m_Shader: {fileID: 7, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
@@ -27,4 +27,4 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: .362556666, g: .350670427, b: .507352948, a: 1}
+        second: {r: .33351925, g: .319852948, b: .5, a: 1}
