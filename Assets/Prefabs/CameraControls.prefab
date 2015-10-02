@@ -378,7 +378,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 1
-  Scale: 15
+  Scale: 20
   CalibratedDistance: 4.5
   offset: {x: 0, y: -.200000003, z: 0}
 --- !u!114 &11417070
