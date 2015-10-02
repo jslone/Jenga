@@ -491,7 +491,7 @@ MonoBehaviour:
   ZoomSensitivity: 5
   HandZoomSensitivity: 50
   ZoomNearClip: .100000001
-  ZoomFarClip: 7
+  ZoomFarClip: 5
 --- !u!114 &11474116
 MonoBehaviour:
   m_ObjectHideFlags: 1
