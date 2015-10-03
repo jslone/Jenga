@@ -198,6 +198,7 @@ public class HandControls : Singleton<HandControls>, Pointer
     public Vector3 Delta { get; private set; }
     public Vector3 WorldPosition { get { return betweenFingers; } }
     public Vector3 ElbowPosition { get { return currentHand.Arm.ElbowPosition.ToUnityScaled(); } }
+    public Vector3 BasePosition { get { return new Vector3(currentHand.IsLeft ? -0.1f : 0.1f, 0.0f, -0.2f); } }
     public Vector3 LocalPosition { get { return currentHand.PalmPosition.ToUnityScaled(); } }
     private Vector3 lastPosition;
     private int lastFramePositionUpdated = -2;

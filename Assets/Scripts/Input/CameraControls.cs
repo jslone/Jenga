@@ -14,7 +14,7 @@ public class CameraControls : Singleton<CameraControls>
     public float HandZoomSensitivity = 30.0f;
     public float ZoomNearClip = 0.1f;
     public float ZoomFarClip = 10.0f;
-
+    public float MinHeight = 0.1f;
     private Vector3 _positionCache;
     private Quaternion _rotationCache;
 
@@ -42,9 +42,7 @@ public class CameraControls : Singleton<CameraControls>
         }
         if(Input.GetAxis("Zoom") != 0)
         {
-            Distance += ZoomSensitivity * Input.GetAxis("Zoom");
-            Distance = Mathf.Clamp(Distance, ZoomNearClip, ZoomFarClip);
-            this.transform.position = (this.transform.position - Focus).normalized * Distance + Focus;
+            Zoom(ZoomSensitivity * Input.GetAxis("Zoom"));
         }
         if(HandControls.Instance.isDown && HandControls.Instance.LastClicked == null)
         {
@@ -58,10 +56,7 @@ public class CameraControls : Singleton<CameraControls>
             RotateHorizontal(HandRotationalSensitivity * delta.x);
             RotateVertical(HandRotationalSensitivity * -delta.y);
 
-            Distance += HandZoomSensitivity * delta.z;
-            Distance = Mathf.Clamp(Distance, ZoomNearClip, ZoomFarClip);
-            this.transform.position = (this.transform.position - Focus).normalized * Distance + Focus;
-
+            Zoom(HandZoomSensitivity * delta.z);
             lastHandPosition = HandControls.Instance.LocalPosition;
         }
     }
@@ -81,6 +76,20 @@ public class CameraControls : Singleton<CameraControls>
         {
             transform.localPosition = pos;
             transform.localRotation = rot;
+        }
+    }
+
+    private void Zoom(float delta)
+    {
+        float newDistance = Mathf.Clamp(Distance + delta, ZoomNearClip, ZoomFarClip);
+        transform.position = (this.transform.position - Focus).normalized * newDistance + Focus;
+        
+        if(transform.position.y < MinHeight)
+        {
+            this.transform.position = (this.transform.position - Focus).normalized * Distance + Focus;
+        } else
+        {
+            Distance = newDistance;
         }
     }
 

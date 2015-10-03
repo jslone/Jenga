@@ -70,4 +70,9 @@ public class DragableBlock : MouseInteractable
         heldBy = null;
         SetPieceHeld(false);
     }
+
+    void OnDestroy()
+    {
+        held.Remove(this);
+    }
 }

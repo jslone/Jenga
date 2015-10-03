@@ -19,8 +19,28 @@ public class TrackHandRelative : MonoBehaviour
         float scale = Scale * transform.parent.position.magnitude / CalibratedDistance;
         if(HandControls.Instance.Active && !(HandControls.Instance.isHeld && HandControls.Instance.LastClicked == null))
         {
-            transform.localPosition = Vector3.Lerp(transform.localPosition, scale * (HandControls.Instance.LocalPosition + offset), Time.deltaTime * Speed);
-        } else
+            Vector3 delta = (HandControls.Instance.LocalPosition - HandControls.Instance.BasePosition);
+            Vector3 localPosition = Vector3.Lerp(transform.localPosition, scale * (delta + offset), Time.deltaTime * Speed);
+            Vector3 position = transform.parent.TransformPoint(localPosition);
+
+            Vector2 around = new Vector2(position.x, position.z);
+            float distance = around.sqrMagnitude;
+
+            if (distance == 0)
+            {
+                return;
+            }
+            if (distance < 1)
+            {
+                around.Normalize();
+            }
+
+            position.x = around.x;
+            position.z = around.y;
+            position.y = Mathf.Max(0, position.y);
+            transform.position = position;
+        }
+        else
         {
             transform.localPosition = Vector3.Lerp(transform.localPosition, Vector3.zero, Time.deltaTime * Speed);
         }
