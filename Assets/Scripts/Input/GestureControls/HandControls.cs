@@ -64,15 +64,19 @@ public class HandControls : Singleton<HandControls>, Pointer
                 lastFramePositionUpdated = Time.frameCount;
             }
 
+            Dictionary<Finger.FingerType, float> fingerWeights = new Dictionary<Finger.FingerType, float>()
+            {
+                {Finger.FingerType.TYPE_INDEX, 0.2f},
+                {Finger.FingerType.TYPE_THUMB, 0.8f},
+            };
+
             Vector3 middle = Vector3.zero;
             foreach(Finger f in currentHand.Fingers)
             {
-                if(f.Type == Finger.FingerType.TYPE_INDEX || f.Type == Finger.FingerType.TYPE_THUMB)
-                {
-                    middle += f.TipPosition.ToUnityScaled();
-                }
+                float weight;
+                fingerWeights.TryGetValue(f.Type, out weight);
+                middle += weight * f.TipPosition.ToUnityScaled();
             }
-            middle /= 2;
 
             localBetweenFingers = middle;
             
