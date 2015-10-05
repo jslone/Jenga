@@ -133,12 +133,14 @@ public class HandControls : Singleton<HandControls>, Pointer
 
             Debug.DrawRay(handRay.origin, 10 * handRay.direction, Color.red);
 
+            Debug.Log("Strength: " + currentHand.PinchStrength + " Confidence: " + currentHand.Confidence);
+
             if(currentHand.PinchStrength >= PinchActivation && !isHeld)
             {
                 isDown = true;
                 isHeld = true;
             }
-            else if (currentHand.PinchStrength < PinchRealse && isHeld)
+            else if (currentHand.PinchStrength < (PinchActivation - PinchRealse) && isHeld)
             {
                 isUp = true;
                 isHeld = false;
