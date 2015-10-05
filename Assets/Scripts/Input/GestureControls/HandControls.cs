@@ -183,11 +183,14 @@ public class HandControls : Singleton<HandControls>, Pointer
         {
             Collider[] cols = Physics.OverlapSphere(betweenFingers, SelectRadius);
             Collider closest = null;
+            float distance = float.PositiveInfinity;
             foreach (Collider col in cols)
             {
-                if (closest == null || (closest.transform.position - betweenFingers).sqrMagnitude > (col.transform.position - betweenFingers).sqrMagnitude)
+                float colDist = (col.ClosestPointOnBounds(betweenFingers) - betweenFingers).magnitude;
+                if(colDist < distance)
                 {
                     closest = col;
+                    distance = colDist;
                 }
             }
             return closest;
