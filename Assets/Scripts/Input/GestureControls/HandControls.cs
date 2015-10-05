@@ -150,7 +150,10 @@ public class HandControls : Singleton<HandControls>, Pointer
                 if(g.Type == Gesture.GestureType.TYPE_CIRCLE)
                 {
                     CircleGesture cg = new CircleGesture(g);
-                    
+                    if(g.State == Gesture.GestureState.STATE_START)
+                    {
+                        lastProgress = cg.Progress;
+                    }
                     if(g.State == Gesture.GestureState.STATE_UPDATE)
                     {
                         float degrees = -Mathf.Sign(Vector3.Dot(cg.Normal.ToUnityScaled(), cg.Pointable.Direction.ToUnityScaled())) * (cg.Progress - lastProgress) * 360;
