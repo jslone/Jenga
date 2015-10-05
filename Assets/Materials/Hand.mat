@@ -7,8 +7,8 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Hand
-  m_Shader: {fileID: 4800000, guid: 4424882428cfad94d945dd58599ce259, type: 3}
-  m_ShaderKeywords: _ALPHAPREMULTIPLY_ON _EMISSION
+  m_Shader: {fileID: 4800000, guid: 3fef2f74fd08841438751e78c9715a9b, type: 3}
+  m_ShaderKeywords: _ALPHAPREMULTIPLY_ON _COLOR_ON _EMISSION
   m_LightmapFlags: 1
   m_CustomRenderQueue: 2000
   stringTagMap:
@@ -174,6 +174,10 @@ Material:
         second: 3
       data:
         first:
+          name: _Outline
+        second: .00200000009
+      data:
+        first:
           name: _Stencil
         second: 0
       data:
@@ -196,10 +200,6 @@ Material:
         first:
           name: _ColorMask
         second: 15
-      data:
-        first:
-          name: _Outline
-        second: .00200000009
       data:
         first:
           name: _ColorSpaceGamma
@@ -244,6 +244,30 @@ Material:
         first:
           name: _Max
         second: .300000012
+      data:
+        first:
+          name: _DetailTex
+        second: 0
+      data:
+        first:
+          name: _TintColor
+        second: 1
+      data:
+        first:
+          name: _VertexColor
+        second: 0
+      data:
+        first:
+          name: _Brightness
+        second: 1
+      data:
+        first:
+          name: _Outl
+        second: 0
+      data:
+        first:
+          name: _Asym
+        second: 0
     m_Colors:
       data:
         first:
@@ -252,7 +276,7 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: .733999968, g: .73506397, b: 1, a: 1}
+        second: {r: .733333349, g: .733333349, b: 1, a: 1}
       data:
         first:
           name: _SpecColor
@@ -263,9 +287,21 @@ Material:
         second: {r: 1, g: 1, b: 1, a: 1}
       data:
         first:
+          name: _Emission
+        second: {r: 0, g: 0, b: 0, a: 0}
+      data:
+        first:
           name: _OutlineColor
         second: {r: 0, g: 0, b: 0, a: 1}
       data:
         first:
-          name: _Emission
-        second: {r: 0, g: 0, b: 0, a: 0}
+          name: _Asymmetry
+        second: {r: 0, g: .25, b: .5, a: 0}
+      data:
+        first:
+          name: _ObscuredColor
+        second: {r: .735294104, g: .735294104, b: 1, a: .250980407}
+      data:
+        first:
+          name: _ObscuredOutlineColor
+        second: {r: 0, g: 0, b: 0, a: .5}
