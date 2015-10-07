@@ -39,6 +39,20 @@ Material:
           m_Offset: {x: 0, y: 0}
       data:
         first:
+          name: _Ramp
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _ToonShade
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
           name: _MetallicGlossMap
         second:
           m_Texture: {fileID: 0}
@@ -81,20 +95,6 @@ Material:
           m_Offset: {x: 0, y: 0}
       data:
         first:
-          name: _Ramp
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
-          name: _ToonShade
-        second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
-          m_Offset: {x: 0, y: 0}
-      data:
-        first:
           name: _SpecGlossMap
         second:
           m_Texture: {fileID: 0}
@@ -128,6 +128,10 @@ Material:
         first:
           name: _Smoothness
         second: 0
+      data:
+        first:
+          name: _Outline
+        second: .00200000009
       data:
         first:
           name: _Metalic
@@ -172,10 +176,6 @@ Material:
         first:
           name: _Mode
         second: 3
-      data:
-        first:
-          name: _Outline
-        second: .00200000009
       data:
         first:
           name: _Stencil
@@ -276,11 +276,15 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: .733333349, g: .733333349, b: 1, a: 1}
+        second: {r: .772058845, g: .516598225, b: .516598225, a: 1}
       data:
         first:
           name: _SpecColor
         second: {r: .200000003, g: .200000003, b: .200000003, a: 1}
+      data:
+        first:
+          name: _OutlineColor
+        second: {r: .235156879, g: .199826986, b: .308823526, a: 1}
       data:
         first:
           name: _Albedo
@@ -291,16 +295,12 @@ Material:
         second: {r: 0, g: 0, b: 0, a: 0}
       data:
         first:
-          name: _OutlineColor
-        second: {r: 0, g: 0, b: 0, a: 1}
-      data:
-        first:
           name: _Asymmetry
         second: {r: 0, g: .25, b: .5, a: 0}
       data:
         first:
           name: _ObscuredColor
-        second: {r: .735294104, g: .735294104, b: 1, a: .250980407}
+        second: {r: .506055415, g: .661764741, b: .655321598, a: .250980407}
       data:
         first:
           name: _ObscuredOutlineColor
