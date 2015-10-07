@@ -64,15 +64,19 @@ public class HandControls : Singleton<HandControls>, Pointer
                 lastFramePositionUpdated = Time.frameCount;
             }
 
+            Dictionary<Finger.FingerType, float> fingerWeights = new Dictionary<Finger.FingerType, float>()
+            {
+                {Finger.FingerType.TYPE_INDEX, 0.2f},
+                {Finger.FingerType.TYPE_THUMB, 0.8f},
+            };
+
             Vector3 middle = Vector3.zero;
             foreach(Finger f in currentHand.Fingers)
             {
-                if(f.Type == Finger.FingerType.TYPE_INDEX || f.Type == Finger.FingerType.TYPE_THUMB)
-                {
-                    middle += f.TipPosition.ToUnityScaled();
-                }
+                float weight;
+                fingerWeights.TryGetValue(f.Type, out weight);
+                middle += weight * f.TipPosition.ToUnityScaled();
             }
-            middle /= 2;
 
             localBetweenFingers = middle;
             
@@ -134,7 +138,7 @@ public class HandControls : Singleton<HandControls>, Pointer
                 isDown = true;
                 isHeld = true;
             }
-            else if (currentHand.PinchStrength < PinchRealse && isHeld)
+            else if (currentHand.PinchStrength < (PinchActivation - PinchRealse) && isHeld)
             {
                 isUp = true;
                 isHeld = false;
@@ -146,7 +150,10 @@ public class HandControls : Singleton<HandControls>, Pointer
                 if(g.Type == Gesture.GestureType.TYPE_CIRCLE)
                 {
                     CircleGesture cg = new CircleGesture(g);
-                    
+                    if(g.State == Gesture.GestureState.STATE_START)
+                    {
+                        lastProgress = cg.Progress;
+                    }
                     if(g.State == Gesture.GestureState.STATE_UPDATE)
                     {
                         float degrees = -Mathf.Sign(Vector3.Dot(cg.Normal.ToUnityScaled(), cg.Pointable.Direction.ToUnityScaled())) * (cg.Progress - lastProgress) * 360;
@@ -176,11 +183,14 @@ public class HandControls : Singleton<HandControls>, Pointer
         {
             Collider[] cols = Physics.OverlapSphere(betweenFingers, SelectRadius);
             Collider closest = null;
+            float distance = float.PositiveInfinity;
             foreach (Collider col in cols)
             {
-                if (closest == null || (closest.transform.position - betweenFingers).sqrMagnitude > (col.transform.position - betweenFingers).sqrMagnitude)
+                float colDist = (col.ClosestPointOnBounds(betweenFingers) - betweenFingers).magnitude;
+                if(colDist < distance)
                 {
                     closest = col;
+                    distance = colDist;
                 }
             }
             return closest;

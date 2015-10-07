@@ -17,28 +17,35 @@ public class TrackHandRelative : MonoBehaviour
     void Update()
     {
         float scale = Scale * transform.parent.position.magnitude / CalibratedDistance;
-        if(HandControls.Instance.Active && !(HandControls.Instance.isHeld && HandControls.Instance.LastClicked == null))
+        if(HandControls.Instance.Active)
         {
-            Vector3 delta = (HandControls.Instance.LocalPosition - HandControls.Instance.BasePosition);
-            Vector3 localPosition = Vector3.Lerp(transform.localPosition, scale * (delta + offset), Time.deltaTime * Speed);
-            Vector3 position = transform.parent.TransformPoint(localPosition);
-
-            Vector2 around = new Vector2(position.x, position.z);
-            float distance = around.sqrMagnitude;
-
-            if (distance == 0)
+            if(HandControls.Instance.isHeld && !HandControls.Instance.isHoldindSomething())
             {
-                return;
+                //dragging camera
             }
-            if (distance < 1)
+            else
             {
-                around.Normalize();
-            }
+                Vector3 delta = (HandControls.Instance.LocalPosition - HandControls.Instance.BasePosition);
+                Vector3 localPosition = Vector3.Lerp(transform.localPosition, scale * (delta + offset), Time.deltaTime * Speed);
+                Vector3 position = transform.parent.TransformPoint(localPosition);
 
-            position.x = around.x;
-            position.z = around.y;
-            position.y = Mathf.Max(0, position.y);
-            transform.position = position;
+                Vector2 around = new Vector2(position.x, position.z);
+                float distance = around.sqrMagnitude;
+
+                if (distance == 0)
+                {
+                    return;
+                }
+                if (distance < 1)
+                {
+                    around.Normalize();
+                }
+
+                position.x = around.x;
+                position.z = around.y;
+                position.y = Mathf.Max(0, position.y);
+                transform.position = position;
+            }
         }
         else
         {
