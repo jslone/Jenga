@@ -344,6 +344,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400044}
   - 137: {fileID: 13700000}
+  - 114: {fileID: 11498740}
   m_Layer: 0
   m_Name: pepper_hand_right
   m_TagString: Untagged
@@ -822,6 +823,19 @@ MonoBehaviour:
   elbowJoint: {fileID: 0}
   modelFingerPointing: {x: -1, y: 0, z: 0}
   modelPalmFacing: {x: -0, y: 1, z: 0}
+--- !u!114 &11498740
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5f68c01b52f40b4ab742a5abab23e79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hand: {fileID: 11400010}
+  BadColor: {r: 1, g: .733333349, b: .733333349, a: 1}
 --- !u!137 &13700000
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
@@ -884,6 +898,26 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 30c5f51d43a1f944e86675d1238b01bf, type: 2}
+    - target: {fileID: 0}
+      propertyPath: hand
+      value: 
+      objectReference: {fileID: 11400010}
+    - target: {fileID: 0}
+      propertyPath: BadColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: BadColor.g
+      value: .733333349
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: BadColor.b
+      value: .733333349
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: BadColor.a
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 100046}
