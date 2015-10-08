@@ -462,7 +462,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 1.5
-  Scale: 15
+  Scale: 20
   CalibratedDistance: 4.5
   offset: {x: 0, y: -.200000003, z: -.200000003}
 --- !u!114 &11417070
@@ -577,6 +577,8 @@ MonoBehaviour:
   handController: {fileID: 11432038}
   PinchActivation: .649999976
   PinchRealse: .100000001
+  GrabActivation: .899999976
+  GrabRelease: .100000001
   SelectRadius: .200000003
   RotationSpeed: .25
 --- !u!114 &11483374
@@ -630,7 +632,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toFollow: {fileID: 462828}
-  offset: {x: 0, y: -1.29999995, z: 1.29999995}
+  offset: {x: 0, y: -1.79999995, z: 1.29999995}
 --- !u!124 &12490052
 Behaviour:
   m_ObjectHideFlags: 1

@@ -7,6 +7,7 @@ public class TrackHandRelative : MonoBehaviour
     public float Scale = 1.0f;
     public float CalibratedDistance = 4.5f;
     public Vector3 offset;
+
     // Use this for initialization
     void Start()
     {
@@ -19,7 +20,7 @@ public class TrackHandRelative : MonoBehaviour
         float scale = Scale * transform.parent.position.magnitude / CalibratedDistance;
         if(HandControls.Instance.Active)
         {
-            if(HandControls.Instance.isHeld && !HandControls.Instance.isHoldindSomething())
+            if(CameraControls.Instance.usingHand)
             {
                 //dragging camera
             }
@@ -43,7 +44,7 @@ public class TrackHandRelative : MonoBehaviour
 
                 position.x = around.x;
                 position.z = around.y;
-                position.y = Mathf.Max(0, position.y);
+                position.y = Mathf.Max(CameraControls.Instance.MinHeight, position.y);
                 transform.position = position;
             }
         }

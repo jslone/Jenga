@@ -19,45 +19,64 @@ public class CameraControls : Singleton<CameraControls>
     private Quaternion _rotationCache;
 
     private Vector3 lastHandPosition;
+    public bool usingHand { get; private set; }
 
     // Use this for initialization
     void Awake()
     {
-        
-        if(Init(this))
+
+        if (Init(this))
         {
             Distance = this.transform.localPosition.magnitude;
             this.transform.LookAt(Focus);
         }
+        usingHand = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButton((int)MouseButton.Right))
+        if (Input.GetMouseButton((int)MouseButton.Right))
         {
             followControls.CurrentHeldBias = 1.0f;
             RotateHorizontal(Input.GetAxis("Horizontal"));
             RotateVertical(-Input.GetAxis("Vertical"));
         }
-        if(Input.GetAxis("Zoom") != 0)
+        if (Input.GetAxis("Zoom") != 0)
         {
             Zoom(ZoomSensitivity * Input.GetAxis("Zoom"));
         }
-        if(HandControls.Instance.isAltDown && HandControls.Instance.LastClicked == null)
-        {
-            lastHandPosition = HandControls.Instance.LocalPosition;
-        }   
-        if (HandControls.Instance.isAltHeld && !HandControls.Instance.isHoldindSomething())
-        {
-            Vector3 delta = HandControls.Instance.LocalPosition - lastHandPosition;
-            delta.z = (HandZoomSensitivity * delta.z) * Mathf.Abs(delta.z);
 
-            RotateHorizontal(HandRotationalSensitivity * delta.x);
-            RotateVertical(HandRotationalSensitivity * -delta.y);
+        if (HandControls.Instance.isAltDown || HandControls.Instance.isAltHeld)
+        {
+            if (!HandControls.Instance.isHoldindSomething())
+            {
+                if (!usingHand)
+                {
+                    lastHandPosition = HandControls.Instance.LocalPosition;
+                    usingHand = true;
+                }
+                else
+                {
+                    Vector3 delta = HandControls.Instance.LocalPosition - lastHandPosition;
+                    delta.z = (HandZoomSensitivity * delta.z) * Mathf.Abs(delta.z);
 
-            Zoom(HandZoomSensitivity * delta.z);
-            lastHandPosition = HandControls.Instance.LocalPosition;
+                    RotateHorizontal(HandRotationalSensitivity * delta.x);
+                    RotateVertical(HandRotationalSensitivity * -delta.y);
+
+                    Zoom(HandZoomSensitivity * delta.z);
+                    lastHandPosition = HandControls.Instance.LocalPosition;
+                }
+            }
+            else
+            {
+                usingHand = false;
+            }
+
+        }
+        else
+        {
+            usingHand = false;
         }
     }
 
@@ -72,7 +91,7 @@ public class CameraControls : Singleton<CameraControls>
         Quaternion rot = transform.localRotation;
 
         this.transform.RotateAround(Focus, transform.right, degree);
-        if(transform.position.y <= 0 || Vector3.Dot(transform.up, Vector3.up) < 0)
+        if (transform.position.y <= 0 || Vector3.Dot(transform.up, Vector3.up) < 0)
         {
             transform.localPosition = pos;
             transform.localRotation = rot;
@@ -83,11 +102,12 @@ public class CameraControls : Singleton<CameraControls>
     {
         float newDistance = Mathf.Clamp(Distance + delta, ZoomNearClip, ZoomFarClip);
         transform.position = (this.transform.position - Focus).normalized * newDistance + Focus;
-        
-        if(transform.position.y < MinHeight)
+
+        if (transform.position.y < MinHeight)
         {
             this.transform.position = (this.transform.position - Focus).normalized * Distance + Focus;
-        } else
+        }
+        else
         {
             Distance = newDistance;
         }

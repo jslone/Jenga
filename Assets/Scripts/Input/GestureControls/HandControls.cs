@@ -9,6 +9,8 @@ public class HandControls : Singleton<HandControls>, Pointer
     public HandController handController;
     public float PinchActivation = 0.6f;
     public float PinchRealse = 0.3f;
+    public float GrabActivation = 0.9f;
+    public float GrabRelease = 0.1f;
     public float SelectRadius = 0.3f;
     public float RotationSpeed = 0.1f;
     private Hand currentHand;
@@ -146,12 +148,12 @@ public class HandControls : Singleton<HandControls>, Pointer
                 isHeld = false;
             }
 
-            if (currentHand.GrabStrength >= PinchActivation && !isAltHeld)
+            if (currentHand.GrabStrength >= GrabActivation && !isAltHeld)
             {
                 isAltDown = true;
                 isAltHeld = true;
             }
-            else if (currentHand.GrabStrength < (PinchActivation - PinchRealse) && isAltHeld)
+            else if (currentHand.GrabStrength < (GrabActivation - GrabRelease) && isAltHeld)
             {
                 isAltUp = true;
                 isAltHeld = false;
