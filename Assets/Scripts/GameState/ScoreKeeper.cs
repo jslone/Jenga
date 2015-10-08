@@ -56,9 +56,11 @@ public class ScoreKeeper : MonoBehaviour {
     */
 
     public Text text;
-    private float maxY;
     public int score;
     public GameObject confetti;
+
+    private float maxY;
+    private int lastScore;
 
     private GameObject[] tower;
     private GameObject highestBlock;
@@ -70,6 +72,7 @@ public class ScoreKeeper : MonoBehaviour {
         yayAudio = this.GetComponent<AudioSource>();
         tower = GameObject.FindGameObjectsWithTag("Block");
         maxY = 0.0f;
+        lastScore = 0;
 
         // Find highest block
         foreach (GameObject block in tower) {
@@ -102,7 +105,11 @@ public class ScoreKeeper : MonoBehaviour {
                 score += ComputeScore(maxY);
                 text.text = score.ToString();
                 Instantiate(confetti, cTrans.position, Quaternion.identity);
-                yayAudio.Play();
+                if (score - lastScore > 400)
+                {
+                    yayAudio.Play();
+                    lastScore = score;
+                }
             } 
         }
 
