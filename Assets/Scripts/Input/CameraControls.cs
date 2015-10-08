@@ -44,11 +44,11 @@ public class CameraControls : Singleton<CameraControls>
         {
             Zoom(ZoomSensitivity * Input.GetAxis("Zoom"));
         }
-        if(HandControls.Instance.isDown && HandControls.Instance.LastClicked == null)
+        if(HandControls.Instance.isAltDown && HandControls.Instance.LastClicked == null)
         {
             lastHandPosition = HandControls.Instance.LocalPosition;
         }   
-        if (HandControls.Instance.isHeld && !HandControls.Instance.isHoldindSomething())
+        if (HandControls.Instance.isAltHeld && !HandControls.Instance.isHoldindSomething())
         {
             Vector3 delta = HandControls.Instance.LocalPosition - lastHandPosition;
             delta.z = (HandZoomSensitivity * delta.z) * Mathf.Abs(delta.z);

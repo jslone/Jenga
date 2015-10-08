@@ -40,6 +40,8 @@ public class HandControls : Singleton<HandControls>, Pointer
         
         if(isUp) isUp = false;
         if(isDown) isDown = false;
+        if (isAltUp) isAltUp = false;
+        if (isAltDown) isAltDown = false;
         Delta = Vector3.zero;
 
         if (hands.Count > 0)
@@ -144,6 +146,17 @@ public class HandControls : Singleton<HandControls>, Pointer
                 isHeld = false;
             }
 
+            if (currentHand.GrabStrength >= PinchActivation && !isAltHeld)
+            {
+                isAltDown = true;
+                isAltHeld = true;
+            }
+            else if (currentHand.GrabStrength < (PinchActivation - PinchRealse) && isAltHeld)
+            {
+                isAltUp = true;
+                isAltHeld = false;
+            }
+
             GestureList gestures = frame.Gestures();
             foreach(Gesture g in gestures)
             {
@@ -174,6 +187,11 @@ public class HandControls : Singleton<HandControls>, Pointer
                 isHeld = false;
                 isUp = true;
             }
+            if(isAltHeld)
+            {
+                isAltHeld = false;
+                isAltUp = true;
+            }
         }
     }
 
@@ -197,12 +215,19 @@ public class HandControls : Singleton<HandControls>, Pointer
         }
     }
 
+
     public Vector2 Swipe { get; private set; }
     public Collider LastOver { get; set; }
     public Ray Ray { get { return currentHand == null ? zero : handRay; } }
+
     public bool isDown { get; private set; }
     public bool isUp { get; private set; }
     public bool isHeld { get; private set; }
+
+    public bool isAltDown { get; private set; }
+    public bool isAltUp { get; private set; }
+    public bool isAltHeld { get; private set; }
+
     public bool Active { get { return currentHand != null; } }
     public MouseInteractable[] LastClicked {get; set; }
     public Vector3 Delta { get; private set; }

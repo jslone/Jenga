@@ -185,7 +185,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &410830
 Transform:
   m_ObjectHideFlags: 1
@@ -577,7 +577,7 @@ MonoBehaviour:
   handController: {fileID: 11432038}
   PinchActivation: .649999976
   PinchRealse: .100000001
-  SelectRadius: .300000012
+  SelectRadius: .200000003
   RotationSpeed: .25
 --- !u!114 &11483374
 MonoBehaviour:
