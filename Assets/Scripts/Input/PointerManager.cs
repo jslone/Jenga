@@ -127,7 +127,8 @@ public class PointerManager : Singleton<PointerManager>
     {
         foreach(Pointer p in pointers)
         {
-            if(p.Active) UpdateInteractibles(p);
+            if (p.Active) UpdateInteractibles(p);
+            else Release(p);
         }
     }
 
@@ -165,8 +166,11 @@ public class PointerManager : Singleton<PointerManager>
         }
         else
         {
-            if (lastOver != null) lastOver.GetComponentsInChildren<MouseInteractable>().ForEach(i => i.iOnMouseExit(pointer));
-            pointer.LastOver = null;
+            if (pointer.LastOver != null)
+            {
+                pointer.LastOver.GetComponentsInChildren<MouseInteractable>().ForEach(i => i.iOnMouseExit(pointer));
+                pointer.LastOver = null;
+            }
         }
 
         if (pointer.isUp)
@@ -174,5 +178,17 @@ public class PointerManager : Singleton<PointerManager>
             pointer.LastClicked.ForEach(i => i.iOnMouseUp(pointer));
             pointer.LastClicked = null;
         }
+    }
+
+    void Release(Pointer pointer)
+    {
+        if(pointer.LastOver != null)
+        {
+            pointer.LastOver.GetComponentsInChildren<MouseInteractable>().ForEach(i => i.iOnMouseExit(pointer));
+            pointer.LastOver = null;
+        }
+
+        pointer.LastClicked.ForEach(i => i.iOnMouseUp(pointer));
+        pointer.LastClicked = null;
     }
 }

@@ -8,6 +8,8 @@ public class Mouse : Singleton<Mouse>, Pointer
     public float maxDistance = 10.0f;
     public float distanceSpeed = 2.0f;
 
+    private Renderer rend;
+
     void Awake()
     {
         Init(this);
@@ -19,6 +21,7 @@ public class Mouse : Singleton<Mouse>, Pointer
         Cursor.visible = false;
         SetWorldFromScreen(Input.mousePosition);
         PointerManager.Instance.pointers.Add(this);
+        rend = GetComponent<Renderer>();
     }
 
     // Update is called once per frame
@@ -27,7 +30,7 @@ public class Mouse : Singleton<Mouse>, Pointer
         Vector2 delta = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         Vector2 newScreenPos = ScreenPosition + delta;
         bool mouseMoved = delta.sqrMagnitude > 0;
-
+        rend.enabled = Active;
         // Move along locked positions
         if((isDown || isHeld) && this.isHoldindBlock())
         {
@@ -139,7 +142,7 @@ public class Mouse : Singleton<Mouse>, Pointer
     public bool isDown { get { return Input.GetMouseButtonDown((int)MouseButton.Left); } }
     public bool isUp { get { return Input.GetMouseButtonUp((int)MouseButton.Left); } }
     public bool isHeld { get { return Input.GetMouseButton((int)MouseButton.Left); } }
-    public bool Active { get { return Input.mousePresent; } }
+    public bool Active { get { return Input.mousePresent && !HandControls.Instance.Active; } }
     public MouseInteractable[] LastClicked { get; set; }
     public Vector3 WorldPosition { get { return transform.position; } }
 
