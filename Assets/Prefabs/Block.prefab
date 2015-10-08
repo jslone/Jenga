@@ -303,6 +303,7 @@ GameObject:
   - 82: {fileID: 8223256}
   - 114: {fileID: 11469942}
   - 114: {fileID: 11412906}
+  - 114: {fileID: 11474816}
   m_Layer: 8
   m_Name: Block
   m_TagString: Block
@@ -1169,7 +1170,7 @@ MonoBehaviour:
   heldBlockMaterial: {fileID: 13400000, guid: d59027a561a34b0438e432030c528211, type: 2}
   unheldBlockMaterial: {fileID: 13400000, guid: b3249ca163c7e6f45acdd9fdcd9f44da,
     type: 2}
-  heldDragMultiplier: 10
+  heldDrag: 10
   followAcceleration: 2
 --- !u!114 &11423686
 MonoBehaviour:
@@ -1292,6 +1293,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dimReference: {fileID: 400738}
   distance: .800000012
+--- !u!114 &11474816
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 194166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d283681fb62f3148a50ae9905beda84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11480760
 MonoBehaviour:
   m_ObjectHideFlags: 1

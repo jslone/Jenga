@@ -480,6 +480,9 @@ MonoBehaviour:
   MaxHeldBias: 10
   tunedDistance: 4.5
   handBias: 20
+  minHeight: 0
+  Reset: {fileID: 0}
+  Exit: {fileID: 0}
   handTracker: {fileID: 462828}
 --- !u!114 &11428542
 MonoBehaviour:

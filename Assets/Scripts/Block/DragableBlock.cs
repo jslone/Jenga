@@ -13,7 +13,7 @@ public class DragableBlock : MouseInteractable
     public float followAcceleration = 2.0f;
 
     new Rigidbody rigidbody;
-    private Pointer heldBy = null;
+    public Pointer heldBy { get; private set; }
     private Vector3 offset = Vector3.zero;
     void Awake()
     {
