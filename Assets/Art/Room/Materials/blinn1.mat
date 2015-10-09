@@ -6,12 +6,13 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Floor
+  m_Name: blinn1
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _EMISSION
+  m_ShaderKeywords: _ALPHAPREMULTIPLY_ON _EMISSION
   m_LightmapFlags: 1
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
+  m_CustomRenderQueue: 3000
+  stringTagMap:
+    RenderType: Transparent
   m_SavedProperties:
     serializedVersion: 2
     m_TexEnvs:
@@ -86,7 +87,7 @@ Material:
       data:
         first:
           name: _DstBlend
-        second: 0
+        second: 10
       data:
         first:
           name: _Cutoff
@@ -94,11 +95,11 @@ Material:
       data:
         first:
           name: _ZWrite
-        second: 1
+        second: 0
       data:
         first:
           name: _Glossiness
-        second: .280999988
+        second: .419999987
       data:
         first:
           name: _Metallic
@@ -126,13 +127,13 @@ Material:
       data:
         first:
           name: _Mode
-        second: 0
+        second: 3
     m_Colors:
       data:
         first:
           name: _EmissionColor
-        second: {r: .286764681, g: .123896308, b: .0759083033, a: 1}
+        second: {r: .235294104, g: .137644663, b: .121107265, a: 1}
       data:
         first:
           name: _Color
-        second: {r: .0283617638, g: .0108131478, b: .0588235259, a: 1}
+        second: {r: .632352948, g: .269679934, b: .269679934, a: .0243839025}
