@@ -82,7 +82,6 @@ public class ScoreKeeper : MonoBehaviour {
             }
         }
 
-        
         timer.Start();
     }
 
@@ -90,8 +89,12 @@ public class ScoreKeeper : MonoBehaviour {
     void Update() {
         Transform cTrans;
         Rigidbody rb;
-       
-        
+
+        // Track score only when placing block on top of tower
+        if (GameState.CurrentState != GameState.State.MoveBlock) {
+            return;
+        }
+
         foreach (GameObject block in tower) {
             if (highestBlock != null && block == highestBlock) continue;
             if (DragableBlock.held.Contains(block.GetComponent<DragableBlock>())) continue;
@@ -105,12 +108,12 @@ public class ScoreKeeper : MonoBehaviour {
                 score += ComputeScore(maxY);
                 text.text = score.ToString();
                 Instantiate(confetti, cTrans.position, Quaternion.identity);
-                if (score - lastScore > 400)
-                {
+                if (score - lastScore > 400) {
                     yayAudio.Play();
                     lastScore = score;
                 }
-            } 
+                GameState.ChangeState(GameState.State.SelectBlock);
+            }
         }
 
         if (!timer.IsRunning) timer.Start();

@@ -47,12 +47,10 @@ public class DragableBlock : MouseInteractable
         rigidbody.GetComponent<Collider>().material = held ? heldBlockMaterial : unheldBlockMaterial;
         rigidbody.transform.FindChild("whenHeld").gameObject.SetActive(held && isMouse);
         rigidbody.drag = held ? heldDrag : unheldDrag;
-        if(held)
-        {
+        if (held) {
             DragableBlock.held.Add(this);
-        }
-        else
-        {
+            GameState.ChangeState(GameState.State.MoveBlock);
+        } else {
             DragableBlock.held.Remove(this);
         }
     }

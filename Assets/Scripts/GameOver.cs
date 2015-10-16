@@ -5,12 +5,11 @@ using System.Collections.Generic;
 
 public class GameOver : MonoBehaviour
 {
-
     public ScoreKeeper scoreKeeper;
     public Text countdown;
 
     Stopwatch timer = new Stopwatch(); // defined in ScoreKeeper
-    const float DISCHARGE = 5.0f; 
+    const float DISCHARGE = 5.0f;
 
 
     HashSet<Rigidbody> onTable = new HashSet<Rigidbody>();
@@ -24,6 +23,10 @@ public class GameOver : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameState.CurrentState == GameState.State.GameOver) {
+            return;
+        }
+
         timer.Update();
         if ((!timer.IsRunning) && onTable.Count > 4) {
             timer.Start();
@@ -43,9 +46,11 @@ public class GameOver : MonoBehaviour
                 block.GetComponent<Rigidbody>().AddExplosionForce(2 * force, Vector3.zero, force);
                 this.enabled = false;
             }
+
+            GameState.ChangeState(GameState.State.GameOver);
         }
 
-        // countdown 
+        // countdown
         if (timer.IsRunning) {
             countdown.enabled = true;
             countdown.text = (((int)DISCHARGE) - (int)timer.getElapsedSeconds()).ToString();
@@ -60,6 +65,10 @@ public class GameOver : MonoBehaviour
         if (col.collider.gameObject.layer == LayerMask.NameToLayer("Blocks"))
         {
             onTable.Add(col.rigidbody);
+
+            if (GameState.CurrentState == GameState.State.MoveBlock && DragableBlock.held.Count == 0) {
+                GameState.ChangeState(GameState.State.SelectBlock);
+            }
         }
     }
 
