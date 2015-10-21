@@ -47,7 +47,7 @@ public class CameraControls : Singleton<CameraControls>
             Zoom(ZoomSensitivity * Input.GetAxis("Zoom"));
         }
 
-        if (HandControls.Instance.isAltDown || HandControls.Instance.isAltHeld)
+        if ((HandControls.Instance.isAltDown || HandControls.Instance.isAltHeld) && !UnityEngine.VR.VRDevice.isPresent)
         {
             if (!HandControls.Instance.isHoldindSomething())
             {
