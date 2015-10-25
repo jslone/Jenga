@@ -3,46 +3,46 @@ using System.Collections;
 
 public class SwapMaterials : MouseInteractable
 {
-    public Material[] clickedMaterials;
-    public Material[] hoverMaterials;
-    private Material[] materialsCache;
+    public Renderer normalObj;
+    public Renderer hoveredObj;
+    public Renderer clickedObj;
 
-    new private Renderer renderer;
+    private GameObject currentObj;
 
     private bool clicked = false;
     private bool hovered = false;
 
     void Start()
     {
-        renderer = GetComponent<Renderer>();
-        materialsCache = renderer.materials;
     }
 
     public override void cOnMouseDown()
     {
-        renderer.materials = clickedMaterials;
+        normalObj.enabled = false;
+        hoveredObj.enabled = false;
+        clickedObj.enabled = true;
         clicked = true;
     }
 
     public override void cOnMouseUp()
     {
-        renderer.materials = hovered ? hoverMaterials : materialsCache;
+        clickedObj.enabled = false;
+        hoveredObj.enabled = hovered;
+        normalObj.enabled = !hovered;
         clicked = false;
     }
 
     public override void cOnMouseEnter()
     {
-        if (!clicked)
-        {
-            renderer.materials = hoverMaterials;
-        }
+        normalObj.enabled = false;
+        hoveredObj.enabled = !clicked;
         hovered = true;
     }
 
     public override void cOnMouseExit()
     {
-        if(!clicked)
-            renderer.materials = materialsCache;
+        hoveredObj.enabled = false;
+        normalObj.enabled = !clicked;
         hovered = false;
     }
 }

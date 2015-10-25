@@ -18,7 +18,9 @@ public class HandControls : Singleton<HandControls>, Pointer
     public Vector3 betweenFingers { get { return handController.transform.TransformPoint(localBetweenFingers); } }
     private Ray zero = new Ray();
     private Ray handRay = new Ray();
-    
+
+    private Dictionary<Finger.FingerType, float> fingerWeights;
+
     private float lastProgress;
     void Awake()
     {
@@ -32,6 +34,12 @@ public class HandControls : Singleton<HandControls>, Pointer
         zero.direction = Vector3.zero;
         PointerManager.Instance.pointers.Add(this);
         handController.GetLeapController().EnableGesture(Gesture.GestureType.TYPE_CIRCLE);
+
+        fingerWeights = new Dictionary<Finger.FingerType, float>()
+        {
+            {Finger.FingerType.TYPE_INDEX, 0.2f},
+            {Finger.FingerType.TYPE_THUMB, 0.8f},
+        };
     }
 
     // Update is called once per frame
@@ -39,24 +47,24 @@ public class HandControls : Singleton<HandControls>, Pointer
     {
         Frame frame = handController.GetFrame();
         HandList hands = frame.Hands;
-        
-        if(isUp) isUp = false;
-        if(isDown) isDown = false;
+
+        if (isUp) isUp = false;
+        if (isDown) isDown = false;
         if (isAltUp) isAltUp = false;
         if (isAltDown) isAltDown = false;
         Delta = Vector3.zero;
 
         if (hands.Count > 0)
         {
-            if(currentHand != hands[0])
+            if (currentHand != hands[0])
             {
                 currentHand = hands[0];
             }
             Finger indexFinger = currentHand.Fingers.Where(f => f.Type == Finger.FingerType.TYPE_INDEX).SingleOrDefault();
-            if(indexFinger != null && indexFinger.IsValid)
+            if (indexFinger != null && indexFinger.IsValid)
             {
                 Vector3 newPosition = indexFinger.TipPosition.ToUnityScaled();
-                if(Time.frameCount - 1 == lastFramePositionUpdated)
+                if (Time.frameCount - 1 == lastFramePositionUpdated)
                 {
                     Delta = handController.transform.TransformVector(newPosition - lastPosition);
                 }
@@ -68,14 +76,8 @@ public class HandControls : Singleton<HandControls>, Pointer
                 lastFramePositionUpdated = Time.frameCount;
             }
 
-            Dictionary<Finger.FingerType, float> fingerWeights = new Dictionary<Finger.FingerType, float>()
-            {
-                {Finger.FingerType.TYPE_INDEX, 0.2f},
-                {Finger.FingerType.TYPE_THUMB, 0.8f},
-            };
-
             Vector3 middle = Vector3.zero;
-            foreach(Finger f in currentHand.Fingers)
+            foreach (Finger f in currentHand.Fingers)
             {
                 float weight;
                 fingerWeights.TryGetValue(f.Type, out weight);
@@ -83,17 +85,17 @@ public class HandControls : Singleton<HandControls>, Pointer
             }
 
             localBetweenFingers = middle;
-            
+
             handRay.origin = handController.transform.TransformPoint(currentHand.PalmPosition.ToUnityScaled());
 
             Vector3 localDir = (currentHand.Direction.ToUnityScaled() + currentHand.PalmNormal.ToUnityScaled()).normalized;
             handRay.direction = handController.transform.TransformDirection(localDir);
-            
+
             //int numberOfExtendedFingers = currentHand.Fingers.Where(f => f.IsExtended).Count();
-            
+
             //Vector3 localDir = ((numberOfExtendedFingers + 1) * currentHand.Direction.ToUnityScaled() + 2 * currentHand.PalmNormal.ToUnityScaled()).normalized;
             //handRay.direction = handController.transform.TransformDirection(localDir);
-            
+
             // COM based on finger tips, pinch becomes hard
             //Vector3 centerOfFingers = Vector3.zero;
             //foreach (Finger f in currentHand.Fingers)
@@ -135,9 +137,7 @@ public class HandControls : Singleton<HandControls>, Pointer
 
             //handRay.direction = handController.transform.TransformDirection(-fingerBoneDir);
 
-            Debug.DrawRay(handRay.origin, 10 * handRay.direction, Color.red);
-
-            if(currentHand.PinchStrength >= PinchActivation && !isHeld)
+            if (currentHand.PinchStrength >= PinchActivation && !isHeld)
             {
                 isDown = true;
                 isHeld = true;
@@ -160,16 +160,16 @@ public class HandControls : Singleton<HandControls>, Pointer
             }
 
             GestureList gestures = frame.Gestures();
-            foreach(Gesture g in gestures)
+            foreach (Gesture g in gestures)
             {
-                if(g.Type == Gesture.GestureType.TYPE_CIRCLE)
+                if (g.Type == Gesture.GestureType.TYPE_CIRCLE)
                 {
                     CircleGesture cg = new CircleGesture(g);
-                    if(g.State == Gesture.GestureState.STATE_START)
+                    if (g.State == Gesture.GestureState.STATE_START)
                     {
                         lastProgress = cg.Progress;
                     }
-                    if(g.State == Gesture.GestureState.STATE_UPDATE)
+                    if (g.State == Gesture.GestureState.STATE_UPDATE)
                     {
                         float degrees = -Mathf.Sign(Vector3.Dot(cg.Normal.ToUnityScaled(), cg.Pointable.Direction.ToUnityScaled())) * (cg.Progress - lastProgress) * 360;
 
@@ -189,7 +189,7 @@ public class HandControls : Singleton<HandControls>, Pointer
                 isHeld = false;
                 isUp = true;
             }
-            if(isAltHeld)
+            if (isAltHeld)
             {
                 isAltHeld = false;
                 isAltUp = true;
@@ -207,7 +207,7 @@ public class HandControls : Singleton<HandControls>, Pointer
             foreach (Collider col in cols)
             {
                 float colDist = (col.ClosestPointOnBounds(betweenFingers) - betweenFingers).magnitude;
-                if(colDist < distance)
+                if (colDist < distance)
                 {
                     closest = col;
                     distance = colDist;
@@ -231,7 +231,7 @@ public class HandControls : Singleton<HandControls>, Pointer
     public bool isAltHeld { get; private set; }
 
     public bool Active { get { return currentHand != null; } }
-    public MouseInteractable[] LastClicked {get; set; }
+    public MouseInteractable[] LastClicked { get; set; }
     public Vector3 Delta { get; private set; }
     public Vector3 WorldPosition { get { return betweenFingers; } }
     public Vector3 ElbowPosition { get { return currentHand.Arm.ElbowPosition.ToUnityScaled(); } }
